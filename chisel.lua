@@ -17,6 +17,7 @@ minetest.register_tool( "mychisel:chisel",{
 		{"default:cobble", "default_cobble", "Cobble"},
 		{"default:sandstone","default_sandstone", "Sandstone"},
 		{"default:clay","default_clay",  "Clay"},
+		{"default:coalblock","default_coal_block",  "Coal Block"},
 		{"default:stone","default_stone", "Stone"},
 		{"default:desert_stone","default_desert_stone", "Desert Stone"},
 		{"default:wood","default_wood", "Wood"},
@@ -82,6 +83,20 @@ minetest.register_tool( "mychisel:chisel",{
 			   minetest.set_node(pos,{name = "mychisel:vertical_"..mat.."4", param2=minetest.dir_to_facedir(user:get_look_dir())})
 		end
 	end
+	if mode == "4" then
+		if node.name == item then
+			   minetest.set_node(pos,{name = "mychisel:cross_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
+		end
+		if node.name == "mychisel:cross_"..mat.."1" then
+			   minetest.set_node(pos,{name = "mychisel:cross_"..mat.."2", param2=minetest.dir_to_facedir(user:get_look_dir())})
+		end
+		if node.name == "mychisel:cross_"..mat.."2" then
+			   minetest.set_node(pos,{name = "mychisel:cross_"..mat.."3", param2=minetest.dir_to_facedir(user:get_look_dir())})
+		end
+		if node.name == "mychisel:cross_"..mat.."3" then
+			   minetest.set_node(pos,{name = "mychisel:cross_"..mat.."4", param2=minetest.dir_to_facedir(user:get_look_dir())})
+		end
+	end
 end
 	if not minetest.setting_getbool("creative_mode") then
 		itemstack:add_wear(65535 / (USES - 1))
@@ -99,6 +114,9 @@ end,
 			mode = "3"
 			minetest.chat_send_player(usr,"Vertical Groove")
 		elseif mode == "3" then
+			mode = "4"
+			minetest.chat_send_player(usr,"Cross Grooves")
+		elseif mode == "4" then
 			mode = "1"
 			minetest.chat_send_player(usr,"Chisel 4 Edges")
 		end

@@ -2,6 +2,7 @@ local default_material = {
 		{"default:cobble", "default_cobble", "Cobble"},
 		{"default:sandstone","default_sandstone", "Sandstone"},
 		{"default:clay","default_clay",  "Clay"},
+		{"default:coalblock","default_coal_block",  "Coal Block"},
 		{"default:stone","default_stone", "Stone"},
 		{"default:desert_stone","default_desert_stone", "Desert Stone"},
 		{"default:wood","default_wood", "Wood"},
