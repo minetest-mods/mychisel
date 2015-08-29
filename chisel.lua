@@ -2,7 +2,15 @@ local USES = 200
 
 local mode = {}
 
-
+local function parti(pos)
+  	minetest.add_particlespawner(25w, 0.3,
+		pos, pos,
+		{x=2, y=0.2, z=2}, {x=-2, y=2, z=-2},
+		{x=0, y=-6, z=0}, {x=0, y=-10, z=0},
+		0.2, 1,
+		0.2, 2,
+		true, "mychisel_parti.png")
+end
 
 	mode = "1"
 minetest.register_tool( "mychisel:chisel",{
@@ -45,57 +53,73 @@ minetest.register_tool( "mychisel:chisel",{
 	if mode == "1" then
 		if node.name == item then
 			   minetest.set_node(pos,{name = "mychisel:chiseled_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 		if node.name == "mychisel:chiseled_"..mat.."1" then
 			   minetest.set_node(pos,{name = "mychisel:chiseled_"..mat.."2", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 		if node.name == "mychisel:chiseled_"..mat.."2" then
 			   minetest.set_node(pos,{name = "mychisel:chiseled_"..mat.."3", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 		if node.name == "mychisel:chiseled_"..mat.."3" then
 			   minetest.set_node(pos,{name = "mychisel:chiseled_"..mat.."4", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 	end
 	if mode == "2" then
 		if node.name == item then
 			   minetest.set_node(pos,{name = "mychisel:horizontal_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 		if node.name == "mychisel:horizontal_"..mat.."1" then
 			   minetest.set_node(pos,{name = "mychisel:horizontal_"..mat.."2", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 		if node.name == "mychisel:horizontal_"..mat.."2" then
 			   minetest.set_node(pos,{name = "mychisel:horizontal_"..mat.."3", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 		if node.name == "mychisel:horizontal_"..mat.."3" then
 			   minetest.set_node(pos,{name = "mychisel:horizontal_"..mat.."4", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 	end
 	if mode == "3" then
 		if node.name == item then
 			   minetest.set_node(pos,{name = "mychisel:vertical_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 		if node.name == "mychisel:vertical_"..mat.."1" then
 			   minetest.set_node(pos,{name = "mychisel:vertical_"..mat.."2", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 		if node.name == "mychisel:vertical_"..mat.."2" then
 			   minetest.set_node(pos,{name = "mychisel:vertical_"..mat.."3", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 		if node.name == "mychisel:vertical_"..mat.."3" then
 			   minetest.set_node(pos,{name = "mychisel:vertical_"..mat.."4", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 	end
 	if mode == "4" then
 		if node.name == item then
 			   minetest.set_node(pos,{name = "mychisel:cross_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 		if node.name == "mychisel:cross_"..mat.."1" then
 			   minetest.set_node(pos,{name = "mychisel:cross_"..mat.."2", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 		if node.name == "mychisel:cross_"..mat.."2" then
 			   minetest.set_node(pos,{name = "mychisel:cross_"..mat.."3", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 		if node.name == "mychisel:cross_"..mat.."3" then
 			   minetest.set_node(pos,{name = "mychisel:cross_"..mat.."4", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
 		end
 	end
 end
