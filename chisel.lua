@@ -122,6 +122,24 @@ minetest.register_tool( "mychisel:chisel",{
 			   parti(pos)
 		end
 	end
+	if mode == "5" then
+		if node.name == item then
+			   minetest.set_node(pos,{name = "mychisel:square_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
+		end
+		if node.name == "mychisel:square_"..mat.."1" then
+			   minetest.set_node(pos,{name = "mychisel:square_"..mat.."2", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
+		end
+		if node.name == "mychisel:square_"..mat.."2" then
+			   minetest.set_node(pos,{name = "mychisel:square_"..mat.."3", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
+		end
+		if node.name == "mychisel:square_"..mat.."3" then
+			   minetest.set_node(pos,{name = "mychisel:square_"..mat.."4", param2=minetest.dir_to_facedir(user:get_look_dir())})
+			   parti(pos)
+		end
+	end
 end
 	if not minetest.setting_getbool("creative_mode") then
 		itemstack:add_wear(65535 / (USES - 1))
@@ -142,6 +160,9 @@ end,
 			mode = "4"
 			minetest.chat_send_player(usr,"Cross Grooves")
 		elseif mode == "4" then
+			mode = "5"
+			minetest.chat_send_player(usr,"Square")
+		elseif mode == "5" then
 			mode = "1"
 			minetest.chat_send_player(usr,"Chisel 4 Edges")
 		end

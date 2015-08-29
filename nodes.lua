@@ -137,9 +137,49 @@ local chis4 = {
 			{-0.25, -0.25, -0.5, 0.25, 0.25, 0.5},
 		}
 	}
+local squar1 = {
+	type = "fixed",
+	fixed = {
+			{-0.5, -0.5, -0.4375, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, -0.5, -0.3125, 0.5, -0.4375},
+			{0.3125, -0.5, -0.5, 0.5, 0.5, -0.4375},
+			{-0.5, -0.5, -0.5, 0.5, -0.3125, -0.4375},
+			{-0.5, 0.3125, -0.5, 0.5, 0.5, -0.4375}, 
+		}
+	}
+local squar2 = {
+	type = "fixed",
+	fixed = {
+			{-0.5, -0.5, -0.375, 0.5, 0.5, 0.5}, 
+			{-0.5, -0.5, -0.5, -0.3125, 0.5, -0.375},
+			{0.3125, -0.5, -0.5, 0.5, 0.5, -0.375},
+			{-0.5, -0.5, -0.5, 0.5, -0.3125, -0.375},
+			{-0.5, 0.3125, -0.5, 0.5, 0.5, -0.375},
+		}
+	}
+local squar3 = {
+	type = "fixed",
+	fixed = {
+			{-0.5, -0.5, -0.3125, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, -0.5, -0.3125, 0.5, -0.3125},
+			{0.3125, -0.5, -0.5, 0.5, 0.5, -0.3125},
+			{-0.5, -0.5, -0.5, 0.5, -0.3125, -0.3125},
+			{-0.5, 0.3125, -0.5, 0.5, 0.5, -0.3125},
+		}
+	}
+local squar4 = {
+	type = "fixed",
+	fixed = {
+			{-0.5, -0.5, -0.25, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, -0.5, -0.3125, 0.5, -0.25},
+			{0.3125, -0.5, -0.5, 0.5, 0.5, -0.25},
+			{-0.5, -0.5, -0.5, 0.5, -0.3125, -0.25},
+			{-0.5, 0.3125, -0.5, 0.5, 0.5, -0.25},
+		}
+	}
 
 local default_material = {
-		{"default:cobble", "default_cobble", "Cobble", {cracky = 3, not_in_creative_inventory=0}},
+		{"default:cobble", "default_cobble", "Cobble", {cracky = 3, not_in_creative_inventory=1}},
 		{"default:sandstone","default_sandstone", "Sandstone", {crumbly=2, not_in_creative_inventory=1}},
 		{"default:clay","default_clay",  "Clay", {crumbly=3, not_in_creative_inventory=1}},
 		{"default:coalblock","default_coal_block",  "Coal Block", {cracky = 3, not_in_creative_inventory=1}},
@@ -462,6 +502,82 @@ minetest.register_node("mychisel:cross_"..mat.."4", {
 	groups = gro,
 	node_box = cross4,
 	selection_box = cross4
+
+})
+minetest.register_node("mychisel:square_"..mat.."1", {
+	description = "cross "..desc.."1",
+	drawtype = "nodebox",
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_stint.png",
+		},
+	paramtype = "light",
+	paramtype2 = "facedir",
+	drop = item,
+	groups = gro,
+	node_box = squar1,
+	selection_box = squar1
+
+})
+minetest.register_node("mychisel:square_"..mat.."2", {
+	description = "cross"..desc.."2",
+	drawtype = "nodebox",
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_stint.png",
+		},
+	paramtype = "light",
+	paramtype2 = "facedir",
+	drop = item,
+	groups = gro,
+	node_box = squar2,
+	selection_box = squar2
+
+})
+minetest.register_node("mychisel:square_"..mat.."3", {
+	description = "cross"..desc.."3",
+	drawtype = "nodebox",
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_stint.png",
+		},
+	paramtype = "light",
+	paramtype2 = "facedir",
+	drop = item,
+	groups = gro,
+	node_box = squar3,
+	selection_box = squar3
+
+})
+minetest.register_node("mychisel:square_"..mat.."4", {
+	description = "cross"..desc.."4",
+	drawtype = "nodebox",
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_stint.png",
+		},
+	paramtype = "light",
+	paramtype2 = "facedir",
+	drop = item,
+	groups = gro,
+	node_box = squar4,
+	selection_box = squar4
 
 })
 end
