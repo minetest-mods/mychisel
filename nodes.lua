@@ -163,7 +163,13 @@ local gro = default_material [i][4]
 minetest.register_node("mychisel:vertical_"..mat.."1", {
 	description = "Vertical "..desc.."1",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_vtint.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -177,7 +183,13 @@ minetest.register_node("mychisel:vertical_"..mat.."1", {
 minetest.register_node("mychisel:vertical_"..mat.."2", {
 	description = "Vertical "..desc.."2",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_vtint.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -190,7 +202,13 @@ minetest.register_node("mychisel:vertical_"..mat.."2", {
 minetest.register_node("mychisel:vertical_"..mat.."3", {
 	description = "Vertical "..desc.."3",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_vtint.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -203,7 +221,13 @@ minetest.register_node("mychisel:vertical_"..mat.."3", {
 minetest.register_node("mychisel:vertical_"..mat.."4", {
 	description = "Vertical "..desc.."4",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_vtint.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -216,7 +240,13 @@ minetest.register_node("mychisel:vertical_"..mat.."4", {
 minetest.register_node("mychisel:chiseled_"..mat.."1", {
 	description = "Chiseled"..desc.."1",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_ctint1.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -229,7 +259,13 @@ minetest.register_node("mychisel:chiseled_"..mat.."1", {
 minetest.register_node("mychisel:chiseled_"..mat.."2", {
 	description = "Chiseled"..desc.."2",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_ctint2.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -242,7 +278,13 @@ minetest.register_node("mychisel:chiseled_"..mat.."2", {
 minetest.register_node("mychisel:chiseled_"..mat.."3", {
 	description = "Chiseled"..desc.."3",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_ctint3.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -255,7 +297,13 @@ minetest.register_node("mychisel:chiseled_"..mat.."3", {
 minetest.register_node("mychisel:chiseled_"..mat.."4", {
 	description = "Chiseled"..desc.."4",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_ctint4.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -268,7 +316,13 @@ minetest.register_node("mychisel:chiseled_"..mat.."4", {
 minetest.register_node("mychisel:horizontal_"..mat.."1", {
 	description = "Horizontal "..desc.."1",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_htint.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -281,7 +335,13 @@ minetest.register_node("mychisel:horizontal_"..mat.."1", {
 minetest.register_node("mychisel:horizontal_"..mat.."2", {
 	description = "Horizontal"..desc.."2",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_htint.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -294,7 +354,13 @@ minetest.register_node("mychisel:horizontal_"..mat.."2", {
 minetest.register_node("mychisel:horizontal_"..mat.."3", {
 	description = "Horizontal"..desc.."3",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_htint.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -306,7 +372,13 @@ minetest.register_node("mychisel:horizontal_"..mat.."3", {
 minetest.register_node("mychisel:horizontal_"..mat.."4", {
 	description = "Horizontal"..desc.."4",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_htint.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -319,7 +391,13 @@ minetest.register_node("mychisel:horizontal_"..mat.."4", {
 minetest.register_node("mychisel:cross_"..mat.."1", {
 	description = "cross "..desc.."1",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_ctint.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -332,7 +410,13 @@ minetest.register_node("mychisel:cross_"..mat.."1", {
 minetest.register_node("mychisel:cross_"..mat.."2", {
 	description = "cross"..desc.."2",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_ctint.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -345,7 +429,13 @@ minetest.register_node("mychisel:cross_"..mat.."2", {
 minetest.register_node("mychisel:cross_"..mat.."3", {
 	description = "cross"..desc.."3",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_ctint.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -358,7 +448,13 @@ minetest.register_node("mychisel:cross_"..mat.."3", {
 minetest.register_node("mychisel:cross_"..mat.."4", {
 	description = "cross"..desc.."4",
 	drawtype = "nodebox",
-	tiles = {mat..".png"
+	tiles = {
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png",
+		mat..".png^mychisel_ctint.png",
 		},
 	paramtype = "light",
 	paramtype2 = "facedir",
