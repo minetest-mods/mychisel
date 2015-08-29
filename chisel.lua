@@ -3,7 +3,7 @@ local USES = 200
 local mode = {}
 
 local function parti(pos)
-  	minetest.add_particlespawner(25w, 0.3,
+  	minetest.add_particlespawner(25, 0.3,
 		pos, pos,
 		{x=2, y=0.2, z=2}, {x=-2, y=2, z=-2},
 		{x=0, y=-6, z=0}, {x=0, y=-10, z=0},
