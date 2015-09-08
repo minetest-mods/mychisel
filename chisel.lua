@@ -1,7 +1,5 @@
 local USES = 200
-
 local mode = {}
-
 local function parti(pos)
   	minetest.add_particlespawner(25, 0.3,
 		pos, pos,
@@ -11,14 +9,15 @@ local function parti(pos)
 		0.2, 2,
 		true, "mychisel_parti.png")
 end
-
 	mode = "1"
 minetest.register_tool( "mychisel:chisel",{
 	description = "Chisel",
 	inventory_image = "mychisel_chisel.png",
 	wield_image = "mychisel_chisel.png",
-	on_use = function(itemstack, user, pointed_thing)
-
+on_use = function(itemstack, user, pointed_thing)
+	if pointed_thing.type ~= "node" then
+		return
+	end
 	local pos = pointed_thing.under
 	local node = minetest.get_node(pos)
 	local default_material = {
@@ -41,8 +40,6 @@ minetest.register_tool( "mychisel:chisel",{
 	local item = default_material [i][1]
 	local mat = default_material [i][2]
 	local desc = default_material [i][3]
-
-
 	if pointed_thing.type ~= "node" then
 		return
 	end
@@ -146,8 +143,7 @@ end
 	end
 	return itemstack
 end,
-
-	on_place = function(itemstack, user, pointed_thing)
+on_place = function(itemstack, user, pointed_thing)
 	local usr = user:get_player_name()
 
 		if mode == "1" then
@@ -172,7 +168,6 @@ end,
 	return itemstack
 	end
 })
-
 minetest.register_craft({
 		output = "mychisel:chisel",
 		recipe = {
@@ -181,19 +176,3 @@ minetest.register_craft({
 			{"", "wool:brown", ""},		
 		},
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
