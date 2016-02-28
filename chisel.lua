@@ -29,6 +29,7 @@ on_use = function(itemstack, user, pointed_thing)
 		{"default:desert_stone","default_desert_stone", "Desert Stone"},
 		{"default:wood","default_wood", "Wood"},
 		{"default:acacia_wood","default_acacia_wood", "Acacia Wood"},
+		{"default:aspen_wood","default_aspen_wood", "Aspen Wood"},
 		{"default:pine_wood","default_pine_wood", "Pine Wood"},
 		{"default:desert_cobble","default_desert_cobble", "Desert Cobble"},
 		{"default:junglewood","default_junglewood", "Jungle Wood"},

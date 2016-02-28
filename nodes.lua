@@ -187,6 +187,7 @@ local default_material = {
 		{"default:desert_stone","default_desert_stone", "Desert Stone", {cracky = 3, not_in_creative_inventory=1}},
 		{"default:wood","default_wood", "Wood", {choppy=2, not_in_creative_inventory=1}},
 		{"default:acacia_wood","default_acacia_wood", "Acacia Wood", {choppy=2, not_in_creative_inventory=1}},
+		{"default:aspen_wood","default_aspen_wood", "Aspen Wood", {choppy=2, not_in_creative_inventory=1}},
 		{"default:pine_wood","default_pine_wood", "Pine Wood", {choppy=2, not_in_creative_inventory=1}},
 		{"default:desert_cobble","default_desert_cobble", "Desert Cobble", {cracky = 3, not_in_creative_inventory=1}},
 		{"default:junglewood","default_junglewood", "Jungle Wood", {choppy=2, not_in_creative_inventory=1}},
