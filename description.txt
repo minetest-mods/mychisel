@@ -1,1 +1,1 @@
-Adds tools that can be used to shape blocks.
+A chisel that allows you to shape blocks.
