@@ -172,8 +172,7 @@ on_place = function(itemstack, user, pointed_thing)
 minetest.register_craft({
 		output = "mychisel:chisel",
 		recipe = {
-			{"", "", ""},
-			{"", "default:steel_ingot", ""},
-			{"", "wool:brown", ""},		
+			{"default:steel_ingot"},
+			{"wool:brown"},
 		},
 })
