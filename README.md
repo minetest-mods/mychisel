@@ -35,6 +35,8 @@ Only certain nodes can be chiseled. Here are the supported nodes
 	Stone Brick
 	Desert Stone Brick
 
-Licence - WTFPL
+
+Licence - DWYWPL
+
 
 Forum - https://forum.minetest.net/viewtopic.php?f=11&t=13104
