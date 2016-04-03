@@ -7,6 +7,7 @@ local vert1 = {
 			{-0.5, -0.5, -0.5, -0.1875, 0.5, 0.5}, 
 		}
 	}
+
 local vert2 = {
 	type = "fixed",
 	fixed = {
@@ -15,6 +16,7 @@ local vert2 = {
 			{-0.5, -0.5, -0.5, -0.1875, 0.5, 0.5}, 
 		}
 	}
+
 local vert3 = {
 	type = "fixed",
 	fixed = {
@@ -23,6 +25,7 @@ local vert3 = {
 			{-0.5, -0.5, -0.5, -0.1875, 0.5, 0.5}, 
 		}
 	}
+
 local vert4 = {
 	type = "fixed",
 	fixed = {
@@ -31,6 +34,7 @@ local vert4 = {
 			{-0.5, -0.5, -0.5, -0.1875, 0.5, 0.5}, 
 		}
 	}
+
 local hori1 = {
 	type = "fixed",
 	fixed = {
@@ -39,6 +43,7 @@ local hori1 = {
 			{-0.5, -0.5, -0.5, 0.5, -0.1875, 0.5},   
 		}
 	}
+
 local hori2 = {
 	type = "fixed",
 	fixed = {
@@ -47,6 +52,7 @@ local hori2 = {
 			{-0.5, -0.5, -0.5, 0.5, -0.1875, 0.5},  
 		}
 	}
+
 local hori3 = {
 	type = "fixed",
 	fixed = {
@@ -55,6 +61,7 @@ local hori3 = {
 			{-0.5, -0.5, -0.5, 0.5, -0.1875, 0.5},  
 		}
 	}
+
 local hori4 = {
 	type = "fixed",
 	fixed = {
@@ -63,6 +70,7 @@ local hori4 = {
 			{-0.5, -0.5, -0.5, 0.5, -0.1875, 0.5}, 
 		}
 	}
+
 local cross1 = {
 	type = "fixed",
 	fixed = {
@@ -73,6 +81,7 @@ local cross1 = {
 			{0.1875, 0.1875, -0.5, 0.5, 0.5, 0.5},
 		}
 	}
+
 local cross2 = {
 	type = "fixed",
 	fixed = {
@@ -83,6 +92,7 @@ local cross2 = {
 			{0.1875, 0.1875, -0.5, 0.5, 0.5, 0.5},  
 		}
 	}
+
 local cross3 = {
 	type = "fixed",
 	fixed = {
@@ -93,6 +103,7 @@ local cross3 = {
 			{0.1875, 0.1875, -0.5, 0.5, 0.5, 0.5}, 
 		}
 	}
+
 local cross4 = {
 	type = "fixed",
 	fixed = {
@@ -103,6 +114,7 @@ local cross4 = {
 			{0.1875, 0.1875, -0.5, 0.5, 0.5, 0.5},
 		}
 	}
+
 local chis1 = {
 	type = "fixed",
 	fixed = {
@@ -110,6 +122,7 @@ local chis1 = {
 			{-0.4375, -0.4375, -0.5, 0.4375, 0.4375, 0.5},
 		}
 	}
+
 local chis2 = {
 	type = "fixed",
 	fixed = {
@@ -118,6 +131,7 @@ local chis2 = {
 			{-0.4375, -0.4375, -0.4375, 0.4375, 0.4375, 0.5},
 		}
 	}
+
 local chis3 = {
 	type = "fixed",
 	fixed = {
@@ -127,6 +141,7 @@ local chis3 = {
 			{-0.3125, -0.3125, -0.5, 0.3125, 0.3125, 0.5},
 		}
 	}
+
 local chis4 = {
 	type = "fixed",
 	fixed = {
@@ -137,6 +152,7 @@ local chis4 = {
 			{-0.25, -0.25, -0.5, 0.25, 0.25, 0.5},
 		}
 	}
+
 local squar1 = {
 	type = "fixed",
 	fixed = {
@@ -147,6 +163,7 @@ local squar1 = {
 			{-0.5, 0.3125, -0.5, 0.5, 0.5, -0.4375}, 
 		}
 	}
+
 local squar2 = {
 	type = "fixed",
 	fixed = {
@@ -157,6 +174,7 @@ local squar2 = {
 			{-0.5, 0.3125, -0.5, 0.5, 0.5, -0.375},
 		}
 	}
+
 local squar3 = {
 	type = "fixed",
 	fixed = {
@@ -167,6 +185,7 @@ local squar3 = {
 			{-0.5, 0.3125, -0.5, 0.5, 0.5, -0.3125},
 		}
 	}
+
 local squar4 = {
 	type = "fixed",
 	fixed = {
@@ -195,11 +214,12 @@ local default_material = {
 		{"default:stonebrick","default_stone_brick", "Stone Brick", {cracky = 2, not_in_creative_inventory=1}},
 		{"default:desert_stonebrick","default_desert_stone_brick", "Desert Stone Brick", {cracky = 2, not_in_creative_inventory=1}},
 		}
+
 for i in ipairs (default_material) do
-local item = default_material [i][1]
-local mat = default_material [i][2]
-local desc = default_material [i][3]
-local gro = default_material [i][4]
+	local item = default_material [i][1]
+	local mat = default_material [i][2]
+	local desc = default_material [i][3]
+	local gro = default_material [i][4]
 
 minetest.register_node("mychisel:vertical_"..mat.."1", {
 	description = "Vertical "..desc.."1",
@@ -219,8 +239,8 @@ minetest.register_node("mychisel:vertical_"..mat.."1", {
 	node_box = vert1,
 	selection_box = vert1,
 	on_place = minetest.rotate_node,
-
 })
+
 minetest.register_node("mychisel:vertical_"..mat.."2", {
 	description = "Vertical "..desc.."2",
 	drawtype = "nodebox",
@@ -238,8 +258,8 @@ minetest.register_node("mychisel:vertical_"..mat.."2", {
 	groups = gro,
 	node_box = vert2,
 	selection_box = vert2
-
 })
+
 minetest.register_node("mychisel:vertical_"..mat.."3", {
 	description = "Vertical "..desc.."3",
 	drawtype = "nodebox",
@@ -257,8 +277,8 @@ minetest.register_node("mychisel:vertical_"..mat.."3", {
 	groups = gro,
 	node_box = vert3,
 	selection_box = vert3
-
 })
+
 minetest.register_node("mychisel:vertical_"..mat.."4", {
 	description = "Vertical "..desc.."4",
 	drawtype = "nodebox",
@@ -276,8 +296,8 @@ minetest.register_node("mychisel:vertical_"..mat.."4", {
 	groups = gro,
 	node_box = vert4,
 	selection_box = vert4
-
 })
+
 minetest.register_node("mychisel:chiseled_"..mat.."1", {
 	description = "Chiseled"..desc.."1",
 	drawtype = "nodebox",
@@ -295,8 +315,8 @@ minetest.register_node("mychisel:chiseled_"..mat.."1", {
 	groups = gro,
 	node_box = chis1,
 	selection_box = chis1,
-
 })
+
 minetest.register_node("mychisel:chiseled_"..mat.."2", {
 	description = "Chiseled"..desc.."2",
 	drawtype = "nodebox",
@@ -314,8 +334,8 @@ minetest.register_node("mychisel:chiseled_"..mat.."2", {
 	groups = gro,
 	node_box = chis2,
 	selection_box = chis2
-
 })
+
 minetest.register_node("mychisel:chiseled_"..mat.."3", {
 	description = "Chiseled"..desc.."3",
 	drawtype = "nodebox",
@@ -333,8 +353,8 @@ minetest.register_node("mychisel:chiseled_"..mat.."3", {
 	groups = gro,
 	node_box = chis3,
 	selection_box = chis3
-
 })
+
 minetest.register_node("mychisel:chiseled_"..mat.."4", {
 	description = "Chiseled"..desc.."4",
 	drawtype = "nodebox",
@@ -352,8 +372,8 @@ minetest.register_node("mychisel:chiseled_"..mat.."4", {
 	groups = gro,
 	node_box = chis4,
 	selection_box = chis4
-
 })
+
 minetest.register_node("mychisel:horizontal_"..mat.."1", {
 	description = "Horizontal "..desc.."1",
 	drawtype = "nodebox",
@@ -371,8 +391,8 @@ minetest.register_node("mychisel:horizontal_"..mat.."1", {
 	groups = gro,
 	node_box = hori1,
 	selection_box = hori1
-
 })
+
 minetest.register_node("mychisel:horizontal_"..mat.."2", {
 	description = "Horizontal"..desc.."2",
 	drawtype = "nodebox",
@@ -390,8 +410,8 @@ minetest.register_node("mychisel:horizontal_"..mat.."2", {
 	groups = gro,
 	node_box = hori2,
 	selection_box = hori2
-
 })
+
 minetest.register_node("mychisel:horizontal_"..mat.."3", {
 	description = "Horizontal"..desc.."3",
 	drawtype = "nodebox",
@@ -410,6 +430,7 @@ minetest.register_node("mychisel:horizontal_"..mat.."3", {
 	node_box = hori3,
 	selection_box = hori3
 })
+
 minetest.register_node("mychisel:horizontal_"..mat.."4", {
 	description = "Horizontal"..desc.."4",
 	drawtype = "nodebox",
@@ -427,8 +448,8 @@ minetest.register_node("mychisel:horizontal_"..mat.."4", {
 	groups = gro,
 	node_box = hori4,
 	selection_box = hori4
-
 })
+
 minetest.register_node("mychisel:cross_"..mat.."1", {
 	description = "cross "..desc.."1",
 	drawtype = "nodebox",
@@ -446,8 +467,8 @@ minetest.register_node("mychisel:cross_"..mat.."1", {
 	groups = gro,
 	node_box = cross1,
 	selection_box = cross1
-
 })
+
 minetest.register_node("mychisel:cross_"..mat.."2", {
 	description = "cross"..desc.."2",
 	drawtype = "nodebox",
@@ -465,8 +486,8 @@ minetest.register_node("mychisel:cross_"..mat.."2", {
 	groups = gro,
 	node_box = cross2,
 	selection_box = cross2
-
 })
+
 minetest.register_node("mychisel:cross_"..mat.."3", {
 	description = "cross"..desc.."3",
 	drawtype = "nodebox",
@@ -484,8 +505,8 @@ minetest.register_node("mychisel:cross_"..mat.."3", {
 	groups = gro,
 	node_box = cross3,
 	selection_box = cross3
-
 })
+
 minetest.register_node("mychisel:cross_"..mat.."4", {
 	description = "cross"..desc.."4",
 	drawtype = "nodebox",
@@ -503,8 +524,8 @@ minetest.register_node("mychisel:cross_"..mat.."4", {
 	groups = gro,
 	node_box = cross4,
 	selection_box = cross4
-
 })
+
 minetest.register_node("mychisel:square_"..mat.."1", {
 	description = "cross "..desc.."1",
 	drawtype = "nodebox",
@@ -522,8 +543,8 @@ minetest.register_node("mychisel:square_"..mat.."1", {
 	groups = gro,
 	node_box = squar1,
 	selection_box = squar1
-
 })
+
 minetest.register_node("mychisel:square_"..mat.."2", {
 	description = "cross"..desc.."2",
 	drawtype = "nodebox",
@@ -541,8 +562,8 @@ minetest.register_node("mychisel:square_"..mat.."2", {
 	groups = gro,
 	node_box = squar2,
 	selection_box = squar2
-
 })
+
 minetest.register_node("mychisel:square_"..mat.."3", {
 	description = "cross"..desc.."3",
 	drawtype = "nodebox",
@@ -560,8 +581,8 @@ minetest.register_node("mychisel:square_"..mat.."3", {
 	groups = gro,
 	node_box = squar3,
 	selection_box = squar3
-
 })
+
 minetest.register_node("mychisel:square_"..mat.."4", {
 	description = "cross"..desc.."4",
 	drawtype = "nodebox",
@@ -581,4 +602,5 @@ minetest.register_node("mychisel:square_"..mat.."4", {
 	selection_box = squar4
 
 })
+
 end
