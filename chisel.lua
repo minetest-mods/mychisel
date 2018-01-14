@@ -1,9 +1,21 @@
 local USES = 200
 local TechnicMaxCharge = 300000
 local mode = {}
+chisel.materials = {}
+chisel.mods = {}
+chisel.selected = 1
+chisel.active = "default"
+chisel.program = 1
 mode = "1"
+--chisel.mods ["default"] = 5
+
+
 
 local wehavetechnic =  minetest.get_modpath("technic")
+
+
+  
+  
 
 local default_material = {
 			{"default:cobble", "default_cobble", "Cobble"},
@@ -23,6 +35,38 @@ local default_material = {
 			{"default:desert_stonebrick","default_desert_stone_brick", "Desert Stone Brick"},
 			}
 
+			
+function chisel.register_node(modname, prefix, raw, design) -- global function to register new stuff
+      local counter = chisel.count_stuff() +1
+      chisel.materials [counter] = {}
+      chisel.materials [counter][1] = modname
+      chisel.materials [counter][2] = prefix
+      chisel.materials [counter][3] = raw
+      chisel.materials [counter][4] = design
+end
+
+
+function chisel.add_mod(modname,number)
+      local counter = chisel.count_mods() +1
+      chisel.mods [counter] = {}
+      chisel.mods [counter][1] = modname
+      chisel.mods [counter][2] = number
+end
+      
+
+function chisel.count_stuff()  -- how many materials have been registered already ?
+      local counter = 0
+      for i in ipairs (chisel.materials) do counter = counter +1 end
+      return counter
+end
+
+function chisel.count_mods()   -- how many different mods are registered ? 
+      
+      local counter = 0
+      for i in ipairs (chisel.mods) do counter = counter +1 end
+      return counter
+end
+
 
 local function parti(pos)
   	minetest.add_particlespawner(25, 0.3,
@@ -36,30 +80,37 @@ end
 
 
 
-local function change_mode(user)
+local function change_mode(user, choice)
       
 		local usr = user:get_player_name()
 
-		if mode == "1" then
-			mode = "2"
-			minetest.chat_send_player(usr,"Horizontal Groove")
+		if choice then
+			if mode == "1" then
+				mode = "2"
+				minetest.chat_send_player(usr,"Horizontal Groove")
 
-		elseif mode == "2" then
-			mode = "3"
-			minetest.chat_send_player(usr,"Vertical Groove")
+			elseif mode == "2" then
+				mode = "3"
+				minetest.chat_send_player(usr,"Vertical Groove")
 
-		elseif mode == "3" then
-			mode = "4"
-			minetest.chat_send_player(usr,"Cross Grooves")
+			elseif mode == "3" then
+				mode = "4"
+				minetest.chat_send_player(usr,"Cross Grooves")
 
-		elseif mode == "4" then
-			mode = "5"
-			minetest.chat_send_player(usr,"Square")
+			elseif mode == "4" then
+				mode = "5"
+				minetest.chat_send_player(usr,"Square")
 
-		elseif mode == "5" then
-			mode = "1"
-			minetest.chat_send_player(usr,"Chisel 4 Edges")
+			elseif mode == "5" then
+				mode = "1"
+				minetest.chat_send_player(usr,"Chisel 4 Edges")
+			end
+		else
+			chisel.program = chisel.program +1
+			if chisel.program > chisel.mods [chisel.selected][2] then chisel.program = 1 end
+			minetest.chat_send_player(usr,"Program #"..chisel.program)
 		end
+			
 end
 
       
@@ -238,7 +289,7 @@ if not wehavetechnic then
 		      output = "mychisel:chisel",
 		      recipe = {
 			      {"default:steel_ingot"},
-			      {"wool:brown"},
+			      {"wool:brown"},chisel.add_mod("default",5)
 		      },
       })
 
@@ -283,8 +334,12 @@ if not wehavetechnic then
 				  return
 			  end
 		      
-		      chiselme(pos,user,node)
-		      meta.charge = meta.charge - chisel_charge_per_node
+		      if chisel.active == "default" then
+			    chiselme(pos,user,node)
+			    meta.charge = meta.charge - chisel_charge_per_node
+		      else
+			    minetest.chat_send_player(user:get_player_name()," This is not default and not working yet")
+		      end
 
 			  
 
@@ -300,8 +355,28 @@ if not wehavetechnic then
 		  
 		  on_place = function(itemstack, user, pointed_thing)
 
-	      
-		      change_mode(user)
+		      local number = chisel.count_mods()
+		      local keys=user:get_player_control()
+		      
+		      
+	
+		      -- change design mode of chisel by pressing sneak while right-clicking
+		      if( not( keys["sneak"] )) then
+			   if chisel.active == "default" then 
+				change_mode(user,true)
+			   else
+			       
+				change_mode(user,false)
+			     
+			   end 
+		      else
+			  chisel.selected = chisel.selected +1
+			  if chisel.selected > chisel.count_mods() then chisel.selected = 1 end
+			  
+			  chisel.active = chisel.mods[chisel.selected][1]
+			  minetest.chat_send_player(user:get_player_name()," ***>>> switched to mod: "..chisel.active)
+			  
+		      end
 
 		      return itemstack
 
@@ -321,3 +396,5 @@ if not wehavetechnic then
 	  
 	
 end
+
+chisel.add_mod("default",5)

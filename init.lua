@@ -1,3 +1,5 @@
+chisel = {}
+
 
 dofile(minetest.get_modpath("mychisel").."/chisel.lua")
 
