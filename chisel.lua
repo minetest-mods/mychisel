@@ -1,33 +1,11 @@
 local USES = 200
+local TechnicMaxCharge = 300000
 local mode = {}
+mode = "1"
 
-local function parti(pos)
-  	minetest.add_particlespawner(25, 0.3,
-		pos, pos,
-		{x=2, y=0.2, z=2}, {x=-2, y=2, z=-2},
-		{x=0, y=-6, z=0}, {x=0, y=-10, z=0},
-		0.2, 1,
-		0.2, 2,
-		true, "mychisel_parti.png")
-end
+local wehavetechnic =  minetest.get_modpath("technic")
 
-	mode = "1"
-
-minetest.register_tool( "mychisel:chisel",{
-	description = "Chisel",
-	inventory_image = "mychisel_chisel.png",
-	wield_image = "mychisel_chisel.png",
-
-	on_use = function(itemstack, user, pointed_thing)
-
-		if pointed_thing.type ~= "node" then
-			return
-		end
-
-		local pos = pointed_thing.under
-		local node = minetest.get_node(pos)
-
-		local default_material = {
+local default_material = {
 			{"default:cobble", "default_cobble", "Cobble"},
 			{"default:sandstone","default_sandstone", "Sandstone"},
 			{"default:clay","default_clay",  "Clay"},
@@ -45,19 +23,53 @@ minetest.register_tool( "mychisel:chisel",{
 			{"default:desert_stonebrick","default_desert_stone_brick", "Desert Stone Brick"},
 			}
 
+
+local function parti(pos)
+  	minetest.add_particlespawner(25, 0.3,
+		pos, pos,
+		{x=2, y=0.2, z=2}, {x=-2, y=2, z=-2},
+		{x=0, y=-6, z=0}, {x=0, y=-10, z=0},
+		0.2, 1,
+		0.2, 2,
+		true, "mychisel_parti.png")
+end
+
+
+
+local function change_mode(user)
+      
+		local usr = user:get_player_name()
+
+		if mode == "1" then
+			mode = "2"
+			minetest.chat_send_player(usr,"Horizontal Groove")
+
+		elseif mode == "2" then
+			mode = "3"
+			minetest.chat_send_player(usr,"Vertical Groove")
+
+		elseif mode == "3" then
+			mode = "4"
+			minetest.chat_send_player(usr,"Cross Grooves")
+
+		elseif mode == "4" then
+			mode = "5"
+			minetest.chat_send_player(usr,"Square")
+
+		elseif mode == "5" then
+			mode = "1"
+			minetest.chat_send_player(usr,"Chisel 4 Edges")
+		end
+end
+
+      
+
+local function chiselme(pos, user, node)
+      		
 		for i in ipairs (default_material) do
 		local item = default_material [i][1]
 		local mat = default_material [i][2]
 		local desc = default_material [i][3]
-
-		if pointed_thing.type ~= "node" then
-			return
-		end
-
-		if minetest.is_protected(pos, user:get_player_name()) then
-			minetest.record_protection_violation(pos, user:get_player_name())
-			return
-		end
 
 		if mode == "1" then
 
@@ -175,54 +187,137 @@ minetest.register_tool( "mychisel:chisel",{
 		end
 
 	end
+	return 
+end
 
-		if not minetest.setting_getbool("creative_mode") then
-			itemstack:add_wear(65535 / (USES - 1))
-		end
+    
+if not wehavetechnic then
 
-		return itemstack
+      minetest.register_tool( "mychisel:chisel",{
+	      description = "Chisel",
+	      inventory_image = "mychisel_chisel.png",
+	      wield_image = "mychisel_chisel.png",
 
-	end,
+	      on_use = function(itemstack, user, pointed_thing)
 
-	on_place = function(itemstack, user, pointed_thing)
+		      if pointed_thing.type ~= "node" then
+			      return
+		      end
 
-		local usr = user:get_player_name()
+		      local pos = pointed_thing.under
+		      local node = minetest.get_node(pos)
+		      
+		      
+		      if minetest.is_protected(pos, user:get_player_name()) then
+			      minetest.record_protection_violation(pos, user:get_player_name())
+			      return
+		      end
 
-		if mode == "1" then
-			mode = "2"
-			minetest.chat_send_player(usr,"Horizontal Groove")
+		      chiselme(pos,user,node)
 
-		elseif mode == "2" then
-			mode = "3"
-			minetest.chat_send_player(usr,"Vertical Groove")
+		      if not minetest.setting_getbool("creative_mode") then
+			      itemstack:add_wear(65535 / (USES - 1))
+		      end
 
-		elseif mode == "3" then
-			mode = "4"
-			minetest.chat_send_player(usr,"Cross Grooves")
+		      return itemstack
 
-		elseif mode == "4" then
-			mode = "5"
-			minetest.chat_send_player(usr,"Square")
+	      end,
 
-		elseif mode == "5" then
-			mode = "1"
-			minetest.chat_send_player(usr,"Chisel 4 Edges")
-		end
+	      on_place = function(itemstack, user, pointed_thing)
 
-		if not minetest.setting_getbool("creative_mode") then
-			itemstack:add_wear(65535 / (USES - 1))
-		end
+	      
+		      change_mode(user)
 
-		return itemstack
+		      return itemstack
 
-	end
+	      end
 
-})
+      })
 
-minetest.register_craft({
-		output = "mychisel:chisel",
-		recipe = {
-			{"default:steel_ingot"},
-			{"wool:brown"},
-		},
-})
+      minetest.register_craft({
+		      output = "mychisel:chisel",
+		      recipe = {
+			      {"default:steel_ingot"},
+			      {"wool:brown"},
+		      },
+      })
+
+      
+      
+      
+      else
+
+
+	  local S = technic.getter
+
+	  technic.register_power_tool("mychisel:chisel",TechnicMaxCharge)
+	  local chisel_charge_per_node =math.floor( TechnicMaxCharge / USES )
+
+
+	  minetest.register_tool("mychisel:chisel", {
+		  description = S("Chisel"),
+		  inventory_image = "mychisel_chisel.png",
+		  stack_max = 1,
+		  wear_represents = "technic_RE_charge",
+		  on_refill = technic.refill_RE_charge,
+		  on_use = function(itemstack, user, pointed_thing)
+		    
+			  
+		      if pointed_thing.type ~= "node" then
+			      return
+		      end
+
+		      local pos = pointed_thing.under
+		      local node = minetest.get_node(pos)
+		      
+		      
+		      
+		      if minetest.is_protected(pos, user:get_player_name()) then
+			      minetest.record_protection_violation(pos, user:get_player_name())
+			      return
+		      end
+
+		      local meta = minetest.deserialize(itemstack:get_metadata())
+			  if not meta or not meta.charge or
+					  meta.charge < chisel_charge_per_node then
+				  return
+			  end
+		      
+		      chiselme(pos,user,node)
+		      meta.charge = meta.charge - chisel_charge_per_node
+
+			  
+
+			  if not technic.creative_mode then
+				  technic.set_RE_wear(itemstack, meta.charge, TechnicMaxCharge)
+				  itemstack:set_metadata(minetest.serialize(meta))
+			  end
+			  
+			  return itemstack
+		    
+			  
+		  end,
+		  
+		  on_place = function(itemstack, user, pointed_thing)
+
+	      
+		      change_mode(user)
+
+		      return itemstack
+
+	      end
+	  })
+
+
+	  minetest.register_craft({
+			    output = "mychisel:chisel",
+			    recipe = {
+				    {"default:diamond",                                  "default:diamond" ,                      "default:diamond"              },
+				    {"",      "technic:stainless_steel_ingot",              ""},
+				    {"",                              "technic:battery",                                 ""},
+			    }
+		    })
+	  
+	  
+	
+end
