@@ -7,7 +7,7 @@ chisel.selected = 1
 chisel.active = "default"
 chisel.program = 1
 mode = "1"
---chisel.mods ["default"] = 5
+
 
 
 
@@ -80,6 +80,23 @@ end
 
 
 
+
+local function chiselcut(pos,user,node)
+           local name = user:get_player_name()
+	   
+	   for i in ipairs (default_material) do
+	     
+	     if chisel.materials[i][1] == chisel.active then	     
+	      if node.name == chisel.materials[i][3] and chisel.materials[i][4] == chisel.materials[chisel.program][4] then
+		
+		minetest.chat_send_player(name, " HIT")
+		minetest.set_node(pos, {name=chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4]})
+	      end
+	     end
+	   end
+end
+
+
 local function change_mode(user, choice)
       
 		local usr = user:get_player_name()
@@ -108,14 +125,17 @@ local function change_mode(user, choice)
 		else
 			chisel.program = chisel.program +1
 			if chisel.program > chisel.mods [chisel.selected][2] then chisel.program = 1 end
-			minetest.chat_send_player(usr,"Program #"..chisel.program)
+			minetest.chat_send_player(usr,chisel.materials [chisel.program][4])
 		end
 			
 end
 
+
       
 
 local function chiselme(pos, user, node)
+  
+  
       		
 		for i in ipairs (default_material) do
 		local item = default_material [i][1]
@@ -127,22 +147,28 @@ local function chiselme(pos, user, node)
 			if node.name == item then
 				   minetest.set_node(pos,{name = "mychisel:chiseled_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:chiseled_"..mat.."1" then
 				   minetest.set_node(pos,{name = "mychisel:chiseled_"..mat.."2", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:chiseled_"..mat.."2" then
 				   minetest.set_node(pos,{name = "mychisel:chiseled_"..mat.."3", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:chiseled_"..mat.."3" then
 				   minetest.set_node(pos,{name = "mychisel:chiseled_"..mat.."4", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
+			
+			
 		end
 
 		if mode == "2" then
@@ -150,22 +176,27 @@ local function chiselme(pos, user, node)
 			if node.name == item then
 				   minetest.set_node(pos,{name = "mychisel:horizontal_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:horizontal_"..mat.."1" then
 				   minetest.set_node(pos,{name = "mychisel:horizontal_"..mat.."2", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:horizontal_"..mat.."2" then
 				   minetest.set_node(pos,{name = "mychisel:horizontal_"..mat.."3", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:horizontal_"..mat.."3" then
 				   minetest.set_node(pos,{name = "mychisel:horizontal_"..mat.."4", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
+			
 		end
 
 		if mode == "3" then
@@ -173,22 +204,27 @@ local function chiselme(pos, user, node)
 			if node.name == item then
 				   minetest.set_node(pos,{name = "mychisel:vertical_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:vertical_"..mat.."1" then
 				   minetest.set_node(pos,{name = "mychisel:vertical_"..mat.."2", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:vertical_"..mat.."2" then
 				   minetest.set_node(pos,{name = "mychisel:vertical_"..mat.."3", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:vertical_"..mat.."3" then
 				   minetest.set_node(pos,{name = "mychisel:vertical_"..mat.."4", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
+			
 		end
 
 		if mode == "4" then
@@ -196,22 +232,27 @@ local function chiselme(pos, user, node)
 			if node.name == item then
 				   minetest.set_node(pos,{name = "mychisel:cross_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:cross_"..mat.."1" then
 				   minetest.set_node(pos,{name = "mychisel:cross_"..mat.."2", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:cross_"..mat.."2" then
 				   minetest.set_node(pos,{name = "mychisel:cross_"..mat.."3", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:cross_"..mat.."3" then
 				   minetest.set_node(pos,{name = "mychisel:cross_"..mat.."4", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
+			
 		end
 
 		if mode == "5" then
@@ -219,26 +260,31 @@ local function chiselme(pos, user, node)
 			if node.name == item then
 				   minetest.set_node(pos,{name = "mychisel:square_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:square_"..mat.."1" then
 				   minetest.set_node(pos,{name = "mychisel:square_"..mat.."2", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:square_"..mat.."2" then
 				   minetest.set_node(pos,{name = "mychisel:square_"..mat.."3", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
 
 			if node.name == "mychisel:square_"..mat.."3" then
 				   minetest.set_node(pos,{name = "mychisel:square_"..mat.."4", param2=minetest.dir_to_facedir(user:get_look_dir())})
 				   parti(pos)
+				   
 			end
+			
 		end
 
 	end
-	return 
+	
 end
 
     
@@ -256,7 +302,7 @@ if not wehavetechnic then
 		      end
 
 		      local pos = pointed_thing.under
-		      local node = minetest.get_node(pos)
+		      local node = minetest.get_node(pos)local feedback = false
 		      
 		      
 		      if minetest.is_protected(pos, user:get_player_name()) then
@@ -264,7 +310,16 @@ if not wehavetechnic then
 			      return
 		      end
 
-		      chiselme(pos,user,node)
+		      
+		      if chisel.active == "default" then
+			    chiselme(pos,user,node)
+			    
+		      else
+			    
+			    chiselcut(pos,user,node)
+			    
+		      end
+
 
 		      if not minetest.setting_getbool("creative_mode") then
 			      itemstack:add_wear(65535 / (USES - 1))
@@ -276,8 +331,29 @@ if not wehavetechnic then
 
 	      on_place = function(itemstack, user, pointed_thing)
 
-	      
-		      change_mode(user)
+		  
+		      local number = chisel.count_mods()
+		      local keys=user:get_player_control()
+		      
+		      
+	
+		      -- change design mode of chisel by pressing sneak while right-clicking
+		      if( not( keys["sneak"] )) then
+			   if chisel.active == "default" then 
+				change_mode(user,true)
+			   else
+			       
+				change_mode(user,false)
+			     
+			   end 
+		      else
+			  chisel.selected = chisel.selected +1
+			  if chisel.selected > chisel.count_mods() then chisel.selected = 1 end
+			  
+			  chisel.active = chisel.mods[chisel.selected][1]
+			  minetest.chat_send_player(user:get_player_name()," ***>>> switched to mod: "..chisel.active)
+			  
+		      end
 
 		      return itemstack
 
@@ -289,7 +365,7 @@ if not wehavetechnic then
 		      output = "mychisel:chisel",
 		      recipe = {
 			      {"default:steel_ingot"},
-			      {"wool:brown"},chisel.add_mod("default",5)
+			      {"wool:brown"},
 		      },
       })
 
@@ -317,7 +393,7 @@ if not wehavetechnic then
 		      if pointed_thing.type ~= "node" then
 			      return
 		      end
-
+		      
 		      local pos = pointed_thing.under
 		      local node = minetest.get_node(pos)
 		      
@@ -338,7 +414,9 @@ if not wehavetechnic then
 			    chiselme(pos,user,node)
 			    meta.charge = meta.charge - chisel_charge_per_node
 		      else
-			    minetest.chat_send_player(user:get_player_name()," This is not default and not working yet")
+			    
+			    chiselcut(pos,user,node)
+			    meta.charge = meta.charge - chisel_charge_per_node
 		      end
 
 			  
