@@ -1,4 +1,5 @@
 local USES = 200
+local color = '#FF6700'
 local TechnicMaxCharge = 300000
 local mode = {}
 chisel.materials = {}
@@ -84,13 +85,13 @@ end
 local function chiselcut(pos,user,node)
            local name = user:get_player_name()
 	   
-	   for i in ipairs (default_material) do
+	   for i in ipairs (chisel.materials) do
 	     
 	     if chisel.materials[i][1] == chisel.active then	     
 	      if node.name == chisel.materials[i][3] and chisel.materials[i][4] == chisel.materials[chisel.program][4] then
 		
-		minetest.chat_send_player(name, " HIT")
-		minetest.set_node(pos, {name=chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4]})
+		--minetest.chat_send_player(name, " HIT  >>> "..chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4])
+		minetest.set_node(pos, {name=chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4], param2=minetest.dir_to_facedir(user:get_look_dir())})
 	      end
 	     end
 	   end
@@ -104,28 +105,28 @@ local function change_mode(user, choice)
 		if choice then
 			if mode == "1" then
 				mode = "2"
-				minetest.chat_send_player(usr,"Horizontal Groove")
+				minetest.chat_send_player(usr,core.colorize(color, "Horizontal Groove"))
 
 			elseif mode == "2" then
 				mode = "3"
-				minetest.chat_send_player(usr,"Vertical Groove")
+				minetest.chat_send_player(usr,core.colorize(color, "Vertical Groove"))
 
 			elseif mode == "3" then
 				mode = "4"
-				minetest.chat_send_player(usr,"Cross Grooves")
+				minetest.chat_send_player(usr, core.colorize(color, "Cross Grooves"))
 
 			elseif mode == "4" then
 				mode = "5"
-				minetest.chat_send_player(usr,"Square")
+				minetest.chat_send_player(usr, core.colorize(color, "Square"))
 
 			elseif mode == "5" then
 				mode = "1"
-				minetest.chat_send_player(usr,"Chisel 4 Edges")
+				minetest.chat_send_player(usr, core.colorize(color, "Chisel 4 Edges"))
 			end
 		else
 			chisel.program = chisel.program +1
 			if chisel.program > chisel.mods [chisel.selected][2] then chisel.program = 1 end
-			minetest.chat_send_player(usr,chisel.materials [chisel.program][4])
+			minetest.chat_send_player(usr, core.colorize(color, chisel.materials [chisel.program][4]))
 		end
 			
 end
@@ -351,7 +352,7 @@ if not wehavetechnic then
 			  if chisel.selected > chisel.count_mods() then chisel.selected = 1 end
 			  
 			  chisel.active = chisel.mods[chisel.selected][1]
-			  minetest.chat_send_player(user:get_player_name()," ***>>> switched to mod: "..chisel.active)
+			  minetest.chat_send_player(user:get_player_name(), core.colorize(color, " ***>>> switched to mod: "..chisel.active))
 			  
 		      end
 
@@ -452,7 +453,7 @@ if not wehavetechnic then
 			  if chisel.selected > chisel.count_mods() then chisel.selected = 1 end
 			  
 			  chisel.active = chisel.mods[chisel.selected][1]
-			  minetest.chat_send_player(user:get_player_name()," ***>>> switched to mod: "..chisel.active)
+			  minetest.chat_send_player(user:get_player_name(),core.colorize(color, " ***>>> switched to mod: "..chisel.active))
 			  
 		      end
 
