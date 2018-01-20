@@ -1,13 +1,13 @@
 local USES = 200
 local color = '#FF6700'
 local TechnicMaxCharge = 300000
-local mode = {}
+
 chisel.materials = {}
 chisel.mods = {}
-chisel.selected = 1
-chisel.active = "default"
-chisel.program = 1
-mode = "1"
+chisel.selected = {}
+chisel.active = {}
+chisel.program = {}
+chisel.mode = {}
 
 
 
@@ -36,6 +36,7 @@ local default_material = {
 			{"default:desert_stonebrick","default_desert_stone_brick", "Desert Stone Brick"},
 			}
 
+
 			
 function chisel.register_node(modname, prefix, raw, design) -- global function to register new stuff
       local counter = chisel.count_stuff() +1
@@ -47,7 +48,7 @@ function chisel.register_node(modname, prefix, raw, design) -- global function t
 end
 
 
-function chisel.add_mod(modname,number)
+function chisel.add_mod(modname,number)                     -- global function to init a new mod for the chisel.
       local counter = chisel.count_mods() +1
       chisel.mods [counter] = {}
       chisel.mods [counter][1] = modname
@@ -55,11 +56,14 @@ function chisel.add_mod(modname,number)
 end
       
 
+
 function chisel.count_stuff()  -- how many materials have been registered already ?
       local counter = 0
       for i in ipairs (chisel.materials) do counter = counter +1 end
       return counter
 end
+
+
 
 function chisel.count_mods()   -- how many different mods are registered ? 
       
@@ -67,6 +71,26 @@ function chisel.count_mods()   -- how many different mods are registered ?
       for i in ipairs (chisel.mods) do counter = counter +1 end
       return counter
 end
+
+
+
+
+-- init chisel for each player joining
+
+local function chiselinit(name)
+	chisel.selected[name] = 1
+	chisel.active[name] = "default"
+	chisel.program[name] = 1
+	chisel.mode[name] = "1"
+end
+
+minetest.register_on_joinplayer(function(player)
+	chiselinit(player:get_player_name())
+end)
+
+-- end init
+
+
 
 
 local function parti(pos)
@@ -87,10 +111,9 @@ local function chiselcut(pos,user,node)
 	   
 	   for i in ipairs (chisel.materials) do
 	     
-	     if chisel.materials[i][1] == chisel.active then	     
-	      if node.name == chisel.materials[i][3] and chisel.materials[i][4] == chisel.materials[chisel.program][4] then
+	     if chisel.materials[i][1] == chisel.active[name] then	     
+	      if node.name == chisel.materials[i][3] and chisel.materials[i][4] == chisel.materials[chisel.program[name]][4] then
 		
-		--minetest.chat_send_player(name, " HIT  >>> "..chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4])
 		minetest.set_node(pos, {name=chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4], param2=minetest.dir_to_facedir(user:get_look_dir())})
 	      end
 	     end
@@ -100,33 +123,34 @@ end
 
 local function change_mode(user, choice)
       
-		local usr = user:get_player_name()
+		local name = user:get_player_name()
+		
 
 		if choice then
-			if mode == "1" then
-				mode = "2"
-				minetest.chat_send_player(usr,core.colorize(color, "Horizontal Groove"))
+			if chisel.mode[name] == "1" then
+				chisel.mode[name] = "2"
+				minetest.chat_send_player(name,core.colorize(color, "Horizontal Groove"))
 
-			elseif mode == "2" then
-				mode = "3"
-				minetest.chat_send_player(usr,core.colorize(color, "Vertical Groove"))
+			elseif chisel.mode[name] == "2" then
+				chisel.mode[name] = "3"
+				minetest.chat_send_player(name,core.colorize(color, "Vertical Groove"))
 
-			elseif mode == "3" then
-				mode = "4"
-				minetest.chat_send_player(usr, core.colorize(color, "Cross Grooves"))
+			elseif chisel.mode[name] == "3" then
+				chisel.mode[name] = "4"
+				minetest.chat_send_player(name, core.colorize(color, "Cross Grooves"))
 
-			elseif mode == "4" then
-				mode = "5"
-				minetest.chat_send_player(usr, core.colorize(color, "Square"))
+			elseif chisel.mode[name] == "4" then
+				chisel.mode[name] = "5"
+				minetest.chat_send_player(name, core.colorize(color, "Square"))
 
-			elseif mode == "5" then
-				mode = "1"
-				minetest.chat_send_player(usr, core.colorize(color, "Chisel 4 Edges"))
+			elseif chisel.mode[name] == "5" then
+				chisel.mode[name] = "1"
+				minetest.chat_send_player(name, core.colorize(color, "Chisel 4 Edges"))
 			end
 		else
-			chisel.program = chisel.program +1
-			if chisel.program > chisel.mods [chisel.selected][2] then chisel.program = 1 end
-			minetest.chat_send_player(usr, core.colorize(color, chisel.materials [chisel.program][4]))
+			chisel.program[name] = chisel.program[name] +1
+			if chisel.program[name] > chisel.mods [chisel.selected[name]][2] then chisel.program[name] = 1 end
+			minetest.chat_send_player(name, core.colorize(color, chisel.materials [chisel.program[name]][4]))
 		end
 			
 end
@@ -137,13 +161,17 @@ end
 local function chiselme(pos, user, node)
   
   
-      		
+		local name = user:get_player_name()
+		
+		
+  
 		for i in ipairs (default_material) do
 		local item = default_material [i][1]
 		local mat = default_material [i][2]
 		local desc = default_material [i][3]
+		
 
-		if mode == "1" then
+		if chisel.mode[name] == "1" then
 
 			if node.name == item then
 				   minetest.set_node(pos,{name = "mychisel:chiseled_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
@@ -172,7 +200,7 @@ local function chiselme(pos, user, node)
 			
 		end
 
-		if mode == "2" then
+		if chisel.mode[name] == "2" then
 
 			if node.name == item then
 				   minetest.set_node(pos,{name = "mychisel:horizontal_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
@@ -200,7 +228,7 @@ local function chiselme(pos, user, node)
 			
 		end
 
-		if mode == "3" then
+		if chisel.mode[name] == "3" then
 
 			if node.name == item then
 				   minetest.set_node(pos,{name = "mychisel:vertical_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
@@ -228,7 +256,7 @@ local function chiselme(pos, user, node)
 			
 		end
 
-		if mode == "4" then
+		if chisel.mode[name] == "4" then
 
 			if node.name == item then
 				   minetest.set_node(pos,{name = "mychisel:cross_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
@@ -256,7 +284,7 @@ local function chiselme(pos, user, node)
 			
 		end
 
-		if mode == "5" then
+		if chisel.mode[name] == "5" then
 
 			if node.name == item then
 				   minetest.set_node(pos,{name = "mychisel:square_"..mat.."1", param2=minetest.dir_to_facedir(user:get_look_dir())})
@@ -304,6 +332,9 @@ if not wehavetechnic then
 
 		      local pos = pointed_thing.under
 		      local node = minetest.get_node(pos)local feedback = false
+		      local name = user:get_player_name()
+		      
+		      
 		      
 		      
 		      if minetest.is_protected(pos, user:get_player_name()) then
@@ -312,7 +343,7 @@ if not wehavetechnic then
 		      end
 
 		      
-		      if chisel.active == "default" then
+		      if chisel.active[name] == "default" then
 			    chiselme(pos,user,node)
 			    
 		      else
@@ -334,13 +365,14 @@ if not wehavetechnic then
 
 		  
 		      local number = chisel.count_mods()
-		      local keys=user:get_player_control()
+		      local keys = user:get_player_control()
+		      local name = user:get_player_name()
 		      
 		      
 	
 		      -- change design mode of chisel by pressing sneak while right-clicking
 		      if( not( keys["sneak"] )) then
-			   if chisel.active == "default" then 
+			   if chisel.active[name] == "default" then 
 				change_mode(user,true)
 			   else
 			       
@@ -348,11 +380,11 @@ if not wehavetechnic then
 			     
 			   end 
 		      else
-			  chisel.selected = chisel.selected +1
-			  if chisel.selected > chisel.count_mods() then chisel.selected = 1 end
+			  chisel.selected[name] = chisel.selected[name] +1
+			  if chisel.selected[name] > chisel.count_mods() then chisel.selected[name] = 1 end
 			  
-			  chisel.active = chisel.mods[chisel.selected][1]
-			  minetest.chat_send_player(user:get_player_name(), core.colorize(color, " ***>>> switched to mod: "..chisel.active))
+			  chisel.active[name] = chisel.mods[chisel.selected[name]][1]
+			  minetest.chat_send_player(user:get_player_name(), core.colorize(color, " ***>>> switched to mod: "..chisel.active[name]))
 			  
 		      end
 
@@ -397,6 +429,7 @@ if not wehavetechnic then
 		      
 		      local pos = pointed_thing.under
 		      local node = minetest.get_node(pos)
+		      local name = user:get_player_name()
 		      
 		      
 		      
@@ -405,13 +438,15 @@ if not wehavetechnic then
 			      return
 		      end
 
+		      --
+		      
 		      local meta = minetest.deserialize(itemstack:get_metadata())
 			  if not meta or not meta.charge or
 					  meta.charge < chisel_charge_per_node then
 				  return
 			  end
 		      
-		      if chisel.active == "default" then
+		      if chisel.active[name] == "default" then
 			    chiselme(pos,user,node)
 			    meta.charge = meta.charge - chisel_charge_per_node
 		      else
@@ -435,13 +470,14 @@ if not wehavetechnic then
 		  on_place = function(itemstack, user, pointed_thing)
 
 		      local number = chisel.count_mods()
-		      local keys=user:get_player_control()
+		      local keys = user:get_player_control()
+		      local name = user:get_player_name()
 		      
 		      
 	
 		      -- change design mode of chisel by pressing sneak while right-clicking
 		      if( not( keys["sneak"] )) then
-			   if chisel.active == "default" then 
+			   if chisel.active[name] == "default" then 
 				change_mode(user,true)
 			   else
 			       
@@ -449,11 +485,11 @@ if not wehavetechnic then
 			     
 			   end 
 		      else
-			  chisel.selected = chisel.selected +1
-			  if chisel.selected > chisel.count_mods() then chisel.selected = 1 end
+			  chisel.selected[name] = chisel.selected[name] +1
+			  if chisel.selected[name] > chisel.count_mods() then chisel.selected[name] = 1 end
 			  
-			  chisel.active = chisel.mods[chisel.selected][1]
-			  minetest.chat_send_player(user:get_player_name(),core.colorize(color, " ***>>> switched to mod: "..chisel.active))
+			  chisel.active[name] = chisel.mods[chisel.selected[name]][1]
+			  minetest.chat_send_player(user:get_player_name(),core.colorize(color, " ***>>> switched to mod: "..chisel.active[name]))
 			  
 		      end
 
