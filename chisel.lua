@@ -1,6 +1,7 @@
 local USES = 200
 local color = '#FF6700'
 local TechnicMaxCharge = 300000
+chisel = {}
 
 chisel.materials = {}
 chisel.mods = {}
@@ -69,6 +70,7 @@ function chisel.add_mod(modname,number)                     -- global function t
       chisel.mods [counter] = {}
       chisel.mods [counter][1] = modname
       chisel.mods [counter][2] = number
+      minetest.log("action","[CHISEL] Added mod "..modname .. " with " .. number.." styles to mychisel") -- log loaded mods to debug.txt
 end
       
 
