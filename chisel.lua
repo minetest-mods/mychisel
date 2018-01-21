@@ -36,8 +36,24 @@ local default_material = {
 			{"default:desert_stonebrick","default_desert_stone_brick", "Desert Stone Brick"},
 			}
 
-
+			-- Chatcommand to show loaded mods with names and number of styles 
 			
+minetest.register_chatcommand("chisel", {
+	params = "",
+	description = "Shows supported mods in mychisel",
+	privs = {interact = true},
+	func = function(name, poi_name)
+
+		for i in ipairs (chisel.mods) do 
+		  
+		      minetest.chat_send_player(name,core.colorize(color,i..") modname :"..chisel.mods[i][1].."   styles: "..chisel.mods[i][2]))
+		end
+
+	end,
+})
+	
+-- global API
+
 function chisel.register_node(modname, prefix, raw, design) -- global function to register new stuff
       local counter = chisel.count_stuff() +1
       chisel.materials [counter] = {}
