@@ -52,7 +52,7 @@ minetest.register_chatcommand("chisel", {
 
 	end,
 })
-	
+
 -- global API
 
 function chisel.register_node(modname, prefix, raw, design) -- global function to register new stuff
@@ -349,7 +349,8 @@ if not wehavetechnic then
 		      end
 
 		      local pos = pointed_thing.under
-		      local node = minetest.get_node(pos)local feedback = false
+		      local node = minetest.get_node(pos)
+		      local feedback = false
 		      local name = user:get_player_name()
 		      
 		      
@@ -385,7 +386,13 @@ if not wehavetechnic then
 		      local number = chisel.count_mods()
 		      local keys = user:get_player_control()
 		      local name = user:get_player_name()
+		      local node = minetest.get_node(pointed_thing.under)
 		      
+		      -- chisel can be repaired with an anvil
+		      if node.name == "anvil:anvil" then 
+			minetest.item_place(itemstack, user, pointed_thing)
+			return itemstack
+		      end
 		      
 	
 		      -- change design mode of chisel by pressing sneak while right-clicking
