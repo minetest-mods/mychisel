@@ -218,7 +218,7 @@ local default_material = {
 		{"default:bronzeblock", "default_bronze_block", "Bronze Block", {cracky = 2, not_in_creative_inventory=1}},
 		{"default:goldblock", "default_gold_block", "Gold Block", {cracky = 2, not_in_creative_inventory=1}},
 		{"default:tinblock", "default_tin_block", "Tin Block", {cracky = 2, not_in_creative_inventory=1}},
-		{"default:copperpatina", "default_copperpatina", "Copperpatina", {cracky = 2, not_in_creative_inventory=1}},
+		{"moreblocks:copperpatina", "moreblocks_copperpatina", "Copperpatina", {cracky = 2, not_in_creative_inventory=1}},
 		}
 
 for i in ipairs (default_material) do

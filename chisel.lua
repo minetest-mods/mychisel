@@ -40,7 +40,7 @@ local default_material = {
 			{"default:bronzeblock", "default_bronze_block", "Bronze Block"},
 			{"default:goldblock", "default_gold_block", "Gold Block"},
 			{"default:tinblock", "default_tin_block", "Tin Block"},
-			{"default:copperpatina", "default_copperpatina", "Copperpatina"},
+			{"moreblocks:copperpatina", "moreblocks_copperpatina", "Copperpatina"},
 			}
 
 			-- Chatcommand to show loaded mods with names and number of styles and supported materials
