@@ -35,19 +35,41 @@ local default_material = {
 			{"default:sandstonebrick","default_sandstone_brick", "Sandstone Brick"},
 			{"default:stonebrick","default_stone_brick", "Stone Brick"},
 			{"default:desert_stonebrick","default_desert_stone_brick", "Desert Stone Brick"},
+			{"default:steelblock", "default_steel_block", "Steel Block"},
+			{"default:copperblock", "default_copper_block", "Copper Block"},
+			{"default:bronzeblock", "default_bronze_block", "Bronze Block"},
+			{"default:goldblock", "default_gold_block", "Gold Block"},
+			{"default:tinblock", "default_tin_block", "Tin Block"},
+			{"default:copperpatina", "default_copperpatina", "Copperpatina"},
 			}
 
-			-- Chatcommand to show loaded mods with names and number of styles 
+			-- Chatcommand to show loaded mods with names and number of styles and supported materials
 			
 minetest.register_chatcommand("chisel", {
 	params = "",
-	description = "Shows supported mods in mychisel",
+	description = "Shows supported mods and materials in mychisel",
 	privs = {interact = true},
 	func = function(name, poi_name)
-
+	    	    
 		for i in ipairs (chisel.mods) do 
+		      local counter = 1
+		      local rawname = ""
 		  
-		      minetest.chat_send_player(name,core.colorize(color,i..") modname :"..chisel.mods[i][1].."   styles: "..chisel.mods[i][2]))
+		      minetest.chat_send_player(name,core.colorize(color,i..") modname: "..chisel.mods[i][1].."   styles: "..chisel.mods[i][2]))
+		      if chisel.mods[i][1] == "default" then
+			    for j in ipairs (default_material) do
+				  minetest.chat_send_player(name, "     "..j..": "..default_material[j][1])
+			    end
+		      else
+			    for j in ipairs (chisel.materials) do
+				if chisel.materials[j][3] ~= rawname then
+				      minetest.chat_send_player(name, "     "..counter..": "..chisel.materials[j][3])
+				      rawname = chisel.materials[j][3]
+				      counter = counter +1
+				end
+			    end
+		      end
+		
 		end
 
 	end,
