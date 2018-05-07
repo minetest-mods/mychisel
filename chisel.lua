@@ -41,6 +41,10 @@ local default_material = {
 			{"default:goldblock", "default_gold_block", "Gold Block"},
 			{"default:tinblock", "default_tin_block", "Tin Block"},
 			{"moreblocks:copperpatina", "moreblocks_copperpatina", "Copperpatina"},
+			{"default:desert_sandstone","default_desert_sandstone", "Desert Sandstone"},
+			{"default:desert_sandstone_brick","default_desert_sandstone_brick", "Desert Sandstonebrick"},
+			{"default:silver_sandstone","default_silver_sandstone", "Silver Sandstone"},
+			{"default:silver_sandstone_brick","default_silver_sandstone_brick", "Silver Sandstonebrick"},
 			}
 
 			-- Chatcommand to show loaded mods with names and number of styles and supported materials
