@@ -213,6 +213,16 @@ local default_material = {
 		{"default:sandstonebrick","default_sandstone_brick", "Sandstone Brick", {cracky = 2, not_in_creative_inventory=1}},
 		{"default:stonebrick","default_stone_brick", "Stone Brick", {cracky = 2, not_in_creative_inventory=1}},
 		{"default:desert_stonebrick","default_desert_stone_brick", "Desert Stone Brick", {cracky = 2, not_in_creative_inventory=1}},
+		{"default:steelblock", "default_steel_block", "Steel Block", {cracky = 2, not_in_creative_inventory=1}},
+		{"default:copperblock", "default_copper_block", "Copper Block", {cracky = 2, not_in_creative_inventory=1}},
+		{"default:bronzeblock", "default_bronze_block", "Bronze Block", {cracky = 2, not_in_creative_inventory=1}},
+		{"default:goldblock", "default_gold_block", "Gold Block", {cracky = 2, not_in_creative_inventory=1}},
+		{"default:tinblock", "default_tin_block", "Tin Block", {cracky = 2, not_in_creative_inventory=1}},
+		{"moreblocks:copperpatina", "moreblocks_copperpatina", "Copperpatina", {cracky = 2, not_in_creative_inventory=1}},
+		{"default:desert_sandstone","default_desert_sandstone", "Desert Sandstone", {cracky = 2, not_in_creative_inventory=1}},
+		{"default:desert_sandstone_brick","default_desert_sandstone_brick", "Desert Sandstonebrick", {cracky = 2, not_in_creative_inventory=1}},
+		{"default:silver_sandstone","default_silver_sandstone", "Silver Sandstone", {cracky = 2, not_in_creative_inventory=1}},
+		{"default:silver_sandstone_brick","default_silver_sandstone_brick", "Silver Sandstonebrick", {cracky = 2, not_in_creative_inventory=1}},
 		}
 
 for i in ipairs (default_material) do
