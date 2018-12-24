@@ -157,8 +157,13 @@ local function chiselcut(pos,user,node)
 	     
 	     if chisel.materials[i][1] == chisel.active[name] then	     
 	      if node.name == chisel.materials[i][3] and chisel.materials[i][4] == chisel.materials[chisel.program[name]][4] then
-		
-		minetest.set_node(pos, {name=chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4], param2=minetest.dir_to_facedir(user:get_look_dir())})
+		local stack = ItemStack(chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4])
+		if stack:is_known() then
+		   minetest.set_node(pos, {name=chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4], param2=minetest.dir_to_facedir(user:get_look_dir())})
+		   return true
+		else
+		   return false
+		end
 	      end
 	     end
 	   end
@@ -378,6 +383,7 @@ if not wehavetechnic then
 		      local node = minetest.get_node(pos)
 		      local feedback = false
 		      local name = user:get_player_name()
+		      local cut = false
 		      
 		      
 		      
@@ -393,12 +399,12 @@ if not wehavetechnic then
 			    
 		      else
 			    
-			    chiselcut(pos,user,node)
+			    cut = chiselcut(pos,user,node)
 			    
 		      end
 
 
-		      if not minetest.setting_getbool("creative_mode") then
+		      if not minetest.setting_getbool("creative_mode") and cut then
 			      itemstack:add_wear(65535 / (USES - 1))
 		      end
 
