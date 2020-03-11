@@ -47,6 +47,31 @@ local default_material = {
 			{"default:silver_sandstone_brick","default_silver_sandstone_brick", "Silver Sandstonebrick"},
 			}
 
+
+
+if minetest.get_modpath( "bakedclay") then
+   local clay = {
+      {"white", "White"},
+      {"grey", "Grey"},
+      {"black", "Black"},
+      {"red", "Red"},
+      {"yellow", "Yellow"},
+      {"green", "Green"},
+      {"cyan", "Cyan"},
+      {"blue", "Blue"},
+      {"magenta", "Magenta"},
+      {"orange", "Orange"},
+      {"violet", "Violet"},
+      {"brown", "Brown"},
+      {"pink", "Pink"},
+      {"dark_grey", "Dark Grey"},
+      {"dark_green", "Dark Green"},
+   }
+
+   for _, clay in pairs(clay) do
+      table.insert(default_material,{"bakedclay:"..clay[1] , "baked_clay_" .. clay[1], clay[2] .. " Baked Clay"})
+   end
+end
 			-- Chatcommand to show loaded mods with names and number of styles and supported materials
 			
 minetest.register_chatcommand("chisel", {

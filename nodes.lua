@@ -225,6 +225,31 @@ local default_material = {
 		{"default:silver_sandstone_brick","default_silver_sandstone_brick", "Silver Sandstonebrick", {cracky = 2, not_in_creative_inventory=1}},
 		}
 
+
+if minetest.get_modpath( "bakedclay") then
+   local clay = {
+      {"white", "White"},
+      {"grey", "Grey"},
+      {"black", "Black"},
+      {"red", "Red"},
+      {"yellow", "Yellow"},
+      {"green", "Green"},
+      {"cyan", "Cyan"},
+      {"blue", "Blue"},
+      {"magenta", "Magenta"},
+      {"orange", "Orange"},
+      {"violet", "Violet"},
+      {"brown", "Brown"},
+      {"pink", "Pink"},
+      {"dark_grey", "Dark Grey"},
+      {"dark_green", "Dark Green"},
+   }
+
+   for _, clay in pairs(clay) do
+      table.insert(default_material,{"bakedclay:"..clay[1] , "baked_clay_" .. clay[1], clay[2] .. " Baked Clay"})
+   end
+end
+
 for i in ipairs (default_material) do
 	local item = default_material [i][1]
 	local mat = default_material [i][2]
