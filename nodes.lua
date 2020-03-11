@@ -246,7 +246,7 @@ if minetest.get_modpath( "bakedclay") then
    }
 
    for _, clay in pairs(clay) do
-      table.insert(default_material,{"bakedclay:"..clay[1] , "baked_clay_" .. clay[1], clay[2] .. " Baked Clay"})
+      table.insert(default_material,{"bakedclay:"..clay[1] , "baked_clay_" .. clay[1], clay[2] .. " Baked Clay",{cracky = 2, not_in_creative_inventory=1})
    end
 end
 
