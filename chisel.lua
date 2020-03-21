@@ -50,27 +50,28 @@ local default_material = {
 
 
 if minetest.get_modpath( "bakedclay") then
-   local clay = {
-      {"white", "White"},
-      {"grey", "Grey"},
-      {"black", "Black"},
-      {"red", "Red"},
-      {"yellow", "Yellow"},
-      {"green", "Green"},
-      {"cyan", "Cyan"},
-      {"blue", "Blue"},
-      {"magenta", "Magenta"},
-      {"orange", "Orange"},
-      {"violet", "Violet"},
-      {"brown", "Brown"},
-      {"pink", "Pink"},
-      {"dark_grey", "Dark Grey"},
-      {"dark_green", "Dark Green"},
-   }
+	local clay = {
+	{"white", "White"},
+	{"grey", "Grey"},
+	{"black", "Black"},
+	{"red", "Red"},
+	{"yellow", "Yellow"},
+	{"green", "Green"},
+	{"cyan", "Cyan"},
+	{"blue", "Blue"},
+	{"magenta", "Magenta"},
+	{"orange", "Orange"},
+	{"violet", "Violet"},
+	{"brown", "Brown"},
+	{"pink", "Pink"},
+	{"dark_grey", "Dark Grey"},
+	{"dark_green", "Dark Green"},
+	{"natural", "Natural"}
+	}
 
-   for _, clay in pairs(clay) do
-      table.insert(default_material,{"bakedclay:"..clay[1] , "baked_clay_" .. clay[1], clay[2] .. " Baked Clay"})
-   end
+	for _, clay in pairs(clay) do
+		table.insert(default_material,{"bakedclay:"..clay[1] , "baked_clay_" .. clay[1], clay[2] .. " Baked Clay"})
+	end
 end
 			-- Chatcommand to show loaded mods with names and number of styles and supported materials
 			
@@ -107,38 +108,38 @@ minetest.register_chatcommand("chisel", {
 -- global API
 
 function chisel.register_node(modname, prefix, raw, design) -- global function to register new stuff
-      local counter = chisel.count_stuff() +1
-      chisel.materials [counter] = {}
-      chisel.materials [counter][1] = modname
-      chisel.materials [counter][2] = prefix
-      chisel.materials [counter][3] = raw
-      chisel.materials [counter][4] = design
+	local counter = chisel.count_stuff() +1
+	chisel.materials [counter] = {}
+	chisel.materials [counter][1] = modname
+	chisel.materials [counter][2] = prefix
+	chisel.materials [counter][3] = raw
+	chisel.materials [counter][4] = design
 end
 
 
 function chisel.add_mod(modname,number)                     -- global function to init a new mod for the chisel.
-      local counter = chisel.count_mods() +1
-      chisel.mods [counter] = {}
-      chisel.mods [counter][1] = modname
-      chisel.mods [counter][2] = number
-      minetest.log("action","[CHISEL] Added mod "..modname .. " with " .. number.." styles to mychisel") -- log loaded mods to debug.txt
+	local counter = chisel.count_mods() +1
+	chisel.mods [counter] = {}
+	chisel.mods [counter][1] = modname
+	chisel.mods [counter][2] = number
+	minetest.log("action","[CHISEL] Added mod "..modname .. " with " .. number.." styles to mychisel") -- log loaded mods to debug.txt
 end
       
 
 
 function chisel.count_stuff()  -- how many materials have been registered already ?
-      local counter = 0
-      for i in ipairs (chisel.materials) do counter = counter +1 end
-      return counter
+	local counter = 0
+	for i in ipairs (chisel.materials) do counter = counter +1 end
+	return counter
 end
 
 
 
 function chisel.count_mods()   -- how many different mods are registered ? 
       
-      local counter = 0
-      for i in ipairs (chisel.mods) do counter = counter +1 end
-      return counter
+	local counter = 0
+	for i in ipairs (chisel.mods) do counter = counter +1 end
+	return counter
 end
 
 
@@ -180,8 +181,8 @@ local function chiselcut(pos,user,node)
 	   
 	   for i in ipairs (chisel.materials) do
 	     
-	     if chisel.materials[i][1] == chisel.active[name] then	     
-	      if node.name == chisel.materials[i][3] and chisel.materials[i][4] == chisel.materials[chisel.program[name]][4] then
+		if chisel.materials[i][1] == chisel.active[name] then	     
+		if node.name == chisel.materials[i][3] and chisel.materials[i][4] == chisel.materials[chisel.program[name]][4] then
 		local stack = ItemStack(chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4])
 		if stack:is_known() then
 		   minetest.set_node(pos, {name=chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4], param2=minetest.dir_to_facedir(user:get_look_dir())})
@@ -393,205 +394,207 @@ end
     
 if not wehavetechnic then
 
-      minetest.register_tool( "mychisel:chisel",{
-	      description = "Chisel",
-	      inventory_image = "mychisel_chisel.png",
-	      wield_image = "mychisel_chisel.png",
+		minetest.register_tool( "mychisel:chisel",{
+		description = "Chisel",
+		inventory_image = "mychisel_chisel.png",
+		wield_image = "mychisel_chisel.png",
 
-	      on_use = function(itemstack, user, pointed_thing)
+		on_use = function(itemstack, user, pointed_thing)
 
-		      if pointed_thing.type ~= "node" then
-			      return
+		if pointed_thing.type ~= "node" then
+			return
+			end
+
+			local pos = pointed_thing.under
+			local node = minetest.get_node(pos)
+			local feedback = false
+			local name = user:get_player_name()
+			local cut = false
+		      
+		      
+		      
+		      
+			if minetest.is_protected(pos, user:get_player_name()) then
+				minetest.record_protection_violation(pos, user:get_player_name())
+				return
 		      end
 
-		      local pos = pointed_thing.under
-		      local node = minetest.get_node(pos)
-		      local feedback = false
-		      local name = user:get_player_name()
-		      local cut = false
 		      
-		      
-		      
-		      
-		      if minetest.is_protected(pos, user:get_player_name()) then
-			      minetest.record_protection_violation(pos, user:get_player_name())
-			      return
-		      end
-
-		      
-		      if chisel.active[name] == "default" then
-			    chiselme(pos,user,node)
+			if chisel.active[name] == "default" then
+				chiselme(pos,user,node)
 			    
-		      else
+			else
 			    
-			    cut = chiselcut(pos,user,node)
+				cut = chiselcut(pos,user,node)
 			    
-		      end
+			end
 
 
-		      if not minetest.setting_getbool("creative_mode") and cut then
-			      itemstack:add_wear(65535 / (USES - 1))
-		      end
+			if not minetest.setting_getbool("creative_mode") and cut then
+				itemstack:add_wear(65535 / (USES - 1))
+			end
 
-		      return itemstack
+			return itemstack
 
-	      end,
+		end,
 
-	      on_place = function(itemstack, user, pointed_thing)
+		on_place = function(itemstack, user, pointed_thing)
 
 		  
-		      local number = chisel.count_mods()
-		      local keys = user:get_player_control()
-		      local name = user:get_player_name()
-		      local node = minetest.get_node(pointed_thing.under)
+		local number = chisel.count_mods()
+		local keys = user:get_player_control()
+		local name = user:get_player_name()
+		local node = minetest.get_node(pointed_thing.under)
 		      
-		      -- chisel can be repaired with an anvil
-		      if node.name == "anvil:anvil" then 
+		-- chisel can be repaired with an anvil
+		if node.name == "anvil:anvil" then 
 			minetest.item_place(itemstack, user, pointed_thing)
 			return itemstack
-		      end
+		end
 		      
 	
-		      -- change design mode of chisel by pressing sneak while right-clicking
-		      if( not( keys["sneak"] )) then
-			   if chisel.active[name] == "default" then 
+		-- change design mode of chisel by pressing sneak while right-clicking
+		if( not( keys["sneak"] )) then
+			if chisel.active[name] == "default" then 
 				change_mode(user,true)
-			   else
+			else
 			       
 				change_mode(user,false)
 			     
-			   end 
-		      else
-			  chisel.selected[name] = chisel.selected[name] +1
-			  if chisel.selected[name] > chisel.count_mods() then chisel.selected[name] = 1 end
+			end 
+		else
+			chisel.selected[name] = chisel.selected[name] +1
+			if chisel.selected[name] > chisel.count_mods() then chisel.selected[name] = 1 end
 			  
-			  chisel.active[name] = chisel.mods[chisel.selected[name]][1]
-			  minetest.chat_send_player(user:get_player_name(), core.colorize(color, " ***>>> switched to mod: "..chisel.active[name]))
+			chisel.active[name] = chisel.mods[chisel.selected[name]][1]
+			minetest.chat_send_player(user:get_player_name(), core.colorize(color, " ***>>> switched to mod: "..chisel.active[name]))
 			  
-		      end
+		end
 
-		      return itemstack
+		return itemstack
 
-	      end
+		end
 
-      })
+	})
 
-      minetest.register_craft({
-		      output = "mychisel:chisel",
-		      recipe = {
-			      {"default:steel_ingot"},
-			      {"wool:brown"},
-		      },
-      })
+	minetest.register_craft({
+	output = "mychisel:chisel",
+	recipe = {
+		{"default:steel_ingot"},
+		{"wool:brown"},
+		},
+	})
 
       
       
       
-      else
+	else
 
 
-	  local S = technic.getter
+	local S = technic.getter
 
-	  technic.register_power_tool("mychisel:chisel",TechnicMaxCharge)
-	  local chisel_charge_per_node =math.floor( TechnicMaxCharge / USES )
+	technic.register_power_tool("mychisel:chisel",TechnicMaxCharge)
+	local chisel_charge_per_node =math.floor( TechnicMaxCharge / USES )
 
 
 	  minetest.register_tool("mychisel:chisel", {
-		  description = S("Chisel"),
-		  inventory_image = "mychisel_chisel.png",
-		  stack_max = 1,
-		  wear_represents = "technic_RE_charge",
-		  on_refill = technic.refill_RE_charge,
-		  on_use = function(itemstack, user, pointed_thing)
+		description = S("Chisel"),
+		inventory_image = "mychisel_chisel.png",
+		stack_max = 1,
+		wear_represents = "technic_RE_charge",
+		on_refill = technic.refill_RE_charge,
+		on_use = function(itemstack, user, pointed_thing)
 		    
 			  
-		      if pointed_thing.type ~= "node" then
-			      return
-		      end
+		if pointed_thing.type ~= "node" then
+			return
+		end
 		      
-		      local pos = pointed_thing.under
-		      local node = minetest.get_node(pos)
-		      local name = user:get_player_name()
+		local pos = pointed_thing.under
+		local node = minetest.get_node(pos)
+		local name = user:get_player_name()
 		      
 		      
 		      
-		      if minetest.is_protected(pos, user:get_player_name()) then
-			      minetest.record_protection_violation(pos, user:get_player_name())
-			      return
-		      end
+		if minetest.is_protected(pos, user:get_player_name()) then
+			minetest.record_protection_violation(pos, user:get_player_name())
+			return
+		end
 
 		      --
 		      
-		      local meta = minetest.deserialize(itemstack:get_metadata())
-			  if not meta or not meta.charge or
-					  meta.charge < chisel_charge_per_node then
-				  return
-			  end
+		local meta = minetest.deserialize(itemstack:get_metadata())
+		if not meta or not meta.charge or
+			meta.charge < chisel_charge_per_node then
+			return
+		end
 		      
-		      if chisel.active[name] == "default" then
-			    chiselme(pos,user,node)
-			    meta.charge = meta.charge - chisel_charge_per_node
-		      else
+		if chisel.active[name] == "default" then
+			chiselme(pos,user,node)
+			meta.charge = meta.charge - chisel_charge_per_node
+		else
 			    
-			    chiselcut(pos,user,node)
-			    meta.charge = meta.charge - chisel_charge_per_node
-		      end
+			chiselcut(pos,user,node)
+			meta.charge = meta.charge - chisel_charge_per_node
+		end
 
 			  
 
-			  if not technic.creative_mode then
-				  technic.set_RE_wear(itemstack, meta.charge, TechnicMaxCharge)
-				  itemstack:set_metadata(minetest.serialize(meta))
-			  end
+		if not technic.creative_mode then
+			technic.set_RE_wear(itemstack, meta.charge, TechnicMaxCharge)
+			itemstack:set_metadata(minetest.serialize(meta))
+		end
 			  
-			  return itemstack
+		return itemstack
 		    
 			  
-		  end,
+	end,
 		  
-		  on_place = function(itemstack, user, pointed_thing)
+	on_place = function(itemstack, user, pointed_thing)
 
-		      local number = chisel.count_mods()
-		      local keys = user:get_player_control()
-		      local name = user:get_player_name()
+	local number = chisel.count_mods()
+	local keys = user:get_player_control()
+	local name = user:get_player_name()
 		      
 		      
 	
-		      -- change design mode of chisel by pressing sneak while right-clicking
-		      if( not( keys["sneak"] )) then
-			   if chisel.active[name] == "default" then 
-				change_mode(user,true)
-			   else
+	-- change design mode of chisel by pressing sneak while right-clicking
+	if( not( keys["sneak"] )) then
+		if chisel.active[name] == "default" then 
+			change_mode(user,true)
+		else
 			       
-				change_mode(user,false)
+			change_mode(user,false)
 			     
-			   end 
-		      else
-			  chisel.selected[name] = chisel.selected[name] +1
-			  if chisel.selected[name] > chisel.count_mods() then chisel.selected[name] = 1 end
+		end 
+		
+	else
+		chisel.selected[name] = chisel.selected[name] +1
+		if chisel.selected[name] > chisel.count_mods() then chisel.selected[name] = 1 end
 			  
-			  chisel.active[name] = chisel.mods[chisel.selected[name]][1]
-			  minetest.chat_send_player(user:get_player_name(),core.colorize(color, " ***>>> switched to mod: "..chisel.active[name]))
+		chisel.active[name] = chisel.mods[chisel.selected[name]][1]
+		minetest.chat_send_player(user:get_player_name(),core.colorize(color, " ***>>> switched to mod: "..chisel.active[name]))
 			  
-		      end
+	end
 
-		      return itemstack
+	return itemstack
 
-	      end
-	  })
+	end
+	})
 
 
-	  minetest.register_craft({
-			    output = "mychisel:chisel",
-			    recipe = {
-				    {"default:diamond",                                  "default:diamond" ,                      "default:diamond"              },
-				    {"",      "technic:stainless_steel_ingot",              ""},
-				    {"",                              "technic:battery",                                 ""},
-			    }
-		    })
+	minetest.register_craft({
+		output = "mychisel:chisel",
+		recipe = {
+			{"default:diamond",                                  "default:diamond" ,                      "default:diamond"              },
+			{"",      "technic:stainless_steel_ingot",              ""},
+			{"",                              "technic:battery",                                 ""},
+			}
+	})
 	  
 	  
 	
 end
+
 
 chisel.add_mod("default",5)

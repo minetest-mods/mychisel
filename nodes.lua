@@ -227,28 +227,30 @@ local default_material = {
 
 
 if minetest.get_modpath( "bakedclay") then
-   local clay = {
-      {"white", "White"},
-      {"grey", "Grey"},
-      {"black", "Black"},
-      {"red", "Red"},
-      {"yellow", "Yellow"},
-      {"green", "Green"},
-      {"cyan", "Cyan"},
-      {"blue", "Blue"},
-      {"magenta", "Magenta"},
-      {"orange", "Orange"},
-      {"violet", "Violet"},
-      {"brown", "Brown"},
-      {"pink", "Pink"},
-      {"dark_grey", "Dark Grey"},
-      {"dark_green", "Dark Green"},
-   }
+	local clay = {
+				{"white", "White"},
+				{"grey", "Grey"},
+				{"black", "Black"},
+				{"red", "Red"},
+				{"yellow", "Yellow"},
+				{"green", "Green"},
+				{"cyan", "Cyan"},
+				{"blue", "Blue"},
+				{"magenta", "Magenta"},
+				{"orange", "Orange"},
+				{"violet", "Violet"},
+				{"brown", "Brown"},
+				{"pink", "Pink"},
+				{"dark_grey", "Dark Grey"},
+				{"dark_green", "Dark Green"},
+				{"natural", "Natural"}
+	}
 
-   for _, clay in pairs(clay) do
-      table.insert(default_material,{"bakedclay:"..clay[1] , "baked_clay_" .. clay[1], clay[2] .. " Baked Clay",{cracky = 2, not_in_creative_inventory=1}})
-   end
+	for _, clay in pairs(clay) do
+		table.insert(default_material,{"bakedclay:"..clay[1] , "baked_clay_" .. clay[1], clay[2] .. " Baked Clay",{cracky = 2, not_in_creative_inventory=1}})
+	end
 end
+
 
 for i in ipairs (default_material) do
 	local item = default_material [i][1]
