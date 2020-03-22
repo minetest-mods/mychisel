@@ -177,22 +177,21 @@ end
 
 
 local function chiselcut(pos,user,node)
-           local name = user:get_player_name()
-	   
-	   for i in ipairs (chisel.materials) do
-	     
+	local name = user:get_player_name()
+
+	for i in ipairs (chisel.materials) do
+
 		if chisel.materials[i][1] == chisel.active[name] then	     
-		if node.name == chisel.materials[i][3] and chisel.materials[i][4] == chisel.materials[chisel.program[name]][4] then
-		local stack = ItemStack(chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4])
-		if stack:is_known() then
-		   minetest.set_node(pos, {name=chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4], param2=minetest.dir_to_facedir(user:get_look_dir())})
-		   return true
-		else
-		   return false
+			if node.name == chisel.materials[i][3] and chisel.materials[i][4] == chisel.materials[chisel.program[name]][4] then
+			local stack = ItemStack(chisel.materials[i][1]..":"..chisel.materials[i][2].."_"..chisel.materials[i][4])
+			if stack:is_known() then
+				minetest.set_node(pos, {name=stack:get_name(), param2=minetest.dir_to_facedir(user:get_look_dir())})
+				return true
+			end
+			return false
+			end
 		end
-	      end
-	     end
-	   end
+	end
 end
 
 
