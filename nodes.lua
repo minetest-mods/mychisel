@@ -1,7 +1,7 @@
 -- TODO: Combine with the table in chisel.lua
 local chisel_node_defs = {
 	["mychisel:chiseled_%s"] = {
-		desc = "",
+		desc = "Chiseled",
 		{ -- 1
 			{-0.5, -0.5, -0.4375, 0.5, 0.5, 0.5},
 			{-0.4375, -0.4375, -0.5, 0.4375, 0.4375, 0.5},
@@ -26,7 +26,7 @@ local chisel_node_defs = {
 		},
 	},
 	["mychisel:horizontal_%s"] = {
-		desc = "",
+		desc = "Horizontal",
 		{ -- 1
 			{-0.5, -0.5, -0.4375, 0.5, 0.5, 0.5},
 			{-0.5, 0.1875, -0.5, 0.5, 0.5, 0.5},
@@ -72,7 +72,7 @@ local chisel_node_defs = {
 		},
 	},
 	["mychisel:cross_%s"] = {
-		desc = "",
+		desc = "Cross",
 		{ -- 1
 			{-0.5, -0.5, -0.4375, 0.5, 0.5, 0.5},
 			{0.1875, -0.5, -0.5, 0.5, -0.1875, 0.5},
@@ -103,7 +103,7 @@ local chisel_node_defs = {
 		},
 	},
 	["mychisel:square_%s"] = {
-		desc = "",
+		desc = "Square",
 		{ -- 1
 			{-0.5, -0.5, -0.4375, 0.5, 0.5, 0.5},
 			{-0.5, -0.5, -0.5, -0.3125, 0.5, -0.4375},
