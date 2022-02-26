@@ -357,12 +357,12 @@ else -- technic is installed
 			local node = minetest.get_node(pos)
 			local name = user:get_player_name()
 
-			if minetest.is_protected(pos, user:get_player_name()) then
-				minetest.record_protection_violation(pos, user:get_player_name())
+			if minetest.is_protected(pos, name) then
+				minetest.record_protection_violation(pos, name)
 				return
 			end
 
-			if technic.creative_mode or technic.use_RE_charge(itemstack, chisel_charge_per_node) then
+			if technic.use_RE_charge(itemstack, chisel_charge_per_node) then
 				if chisel.active[name] == "default" then
 					chiselme(pos,user,node)
 				else
