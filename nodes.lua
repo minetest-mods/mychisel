@@ -220,7 +220,7 @@ for _, material in ipairs(default_material) do
 					mat..".png",
 					mat..".png",
 					mat..".png",
-					mat..".png^mychisel_vtint.png",
+					mat..".png",
 				},
 				paramtype = "light",
 				paramtype2 = "facedir",
