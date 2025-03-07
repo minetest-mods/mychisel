@@ -339,54 +339,81 @@ if not minetest.get_modpath("technic") then
 		},
 	})
 
-
 else -- technic is installed
 
 	local S = technic.getter
-
-	technic.register_power_tool("mychisel:chisel",TechnicMaxCharge)
 	local chisel_charge_per_node = math.floor(TechnicMaxCharge / USES)
 
-
 	chisel_def.description = S("Chisel")
-	chisel_def.wear_represents = "technic_RE_charge"
-	chisel_def.on_refill = technic.refill_RE_charge
-	chisel_def.on_use = function(itemstack, user, pointed_thing)
-		if pointed_thing.type ~= "node" then
-			return
+
+	if technic.plus then
+		chisel_def.max_charge = TechnicMaxCharge
+		chisel_def.on_use = function(itemstack, user, pointed_thing)
+			if pointed_thing.type ~= "node" then
+				return
+			end
+
+			local pos = pointed_thing.under
+			local node = minetest.get_node(pos)
+			local name = user:get_player_name()
+
+			if minetest.is_protected(pos, name) then
+				minetest.record_protection_violation(pos, name)
+				return
+			end
+
+			if technic.use_RE_charge(itemstack, chisel_charge_per_node) then
+				if chisel.active[name] == "default" then
+					chiselme(pos,user,node)
+				else
+					chiselcut(pos,user,node)
+				end
+				return itemstack
+			end
 		end
+		technic.register_power_tool("mychisel:chisel", chisel_def)
+	else
+		technic.register_power_tool("mychisel:chisel",TechnicMaxCharge)
 
-		local pos = pointed_thing.under
-		local node = minetest.get_node(pos)
-		local name = user:get_player_name()
+		chisel_def.wear_represents = "technic_RE_charge"
+		chisel_def.on_refill = technic.refill_RE_charge
+		chisel_def.on_use = function(itemstack, user, pointed_thing)
+			if pointed_thing.type ~= "node" then
+				return
+			end
 
-		if minetest.is_protected(pos, user:get_player_name()) then
-			minetest.record_protection_violation(pos, user:get_player_name())
-			return
-		end
+			local pos = pointed_thing.under
+			local node = minetest.get_node(pos)
+			local name = user:get_player_name()
 
-		local meta = minetest.deserialize(itemstack:get_metadata())
-		if not meta or not meta.charge or
-				meta.charge < chisel_charge_per_node then
-			return
-		end
+			if minetest.is_protected(pos, user:get_player_name()) then
+				minetest.record_protection_violation(pos, user:get_player_name())
+				return
+			end
 
-		if chisel.active[name] == "default" then
-			chiselme(pos,user,node)
-		else
-			chiselcut(pos,user,node)
-		end
-		meta.charge = meta.charge - chisel_charge_per_node
+			local meta = minetest.deserialize(itemstack:get_metadata())
+			if not meta or not meta.charge or
+					meta.charge < chisel_charge_per_node then
+				return
+			end
 
-		if not technic.creative_mode then
-			technic.set_RE_wear(itemstack, meta.charge, TechnicMaxCharge)
-			itemstack:set_metadata(minetest.serialize(meta))
-		end
+			if chisel.active[name] == "default" then
+				chiselme(pos,user,node)
+			else
+				chiselcut(pos,user,node)
+			end
+			meta.charge = meta.charge - chisel_charge_per_node
 
-		return itemstack
-	end,
+			if not technic.creative_mode then
+				technic.set_RE_wear(itemstack, meta.charge, TechnicMaxCharge)
+				itemstack:set_metadata(minetest.serialize(meta))
+			end
 
-	minetest.register_tool("mychisel:chisel", chisel_def)
+			return itemstack
+		end,
+
+		minetest.register_tool("mychisel:chisel", chisel_def)
+	end
 
 	minetest.register_craft({
 		output = "mychisel:chisel",
